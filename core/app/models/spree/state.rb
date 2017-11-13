@@ -3,6 +3,7 @@ module Spree
     belongs_to :country, class_name: 'Spree::Country'
     has_many :addresses, dependent: :restrict_with_error
 
+    has_many :cities, dependent: :destroy, class_name: 'Spree::City'
     has_many :zone_members,
              -> { where(zoneable_type: 'Spree::State') },
              class_name: 'Spree::ZoneMember',

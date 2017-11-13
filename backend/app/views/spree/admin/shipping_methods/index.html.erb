@@ -11,18 +11,14 @@
     <thead>
       <tr data-hook="admin_shipping_methods_index_headers">
         <th><%= Spree.t(:name) %></th>
-        <th><%= Spree.t(:zone) %></th>
-        <th><%= Spree.t(:calculator) %></th>
         <th class="text-center"><%= Spree.t(:display) %></th>
         <th data-hook="admin_shipping_methods_index_header_actions" class="actions"></th>
       </tr>
     </thead>
     <tbody>
-      <% @shipping_methods.includes(:zones, :calculator).each do |shipping_method|%>
+      <% @shipping_methods.each do |shipping_method|%>
         <tr id="<%= spree_dom_id shipping_method %>" data-hook="admin_shipping_methods_index_rows">
           <td><%= shipping_method.admin_name + ' / ' if shipping_method.admin_name.present? %><%= shipping_method.name %></td>
-          <td><%= shipping_method.zones.collect(&:name).join(", ") if shipping_method.zones %></td>
-          <td><%= shipping_method.calculator.description %></td>
           <td class="text-center"><%= shipping_method.display_on.blank? ? Spree.t(:none) : Spree.t(shipping_method.display_on) %></td>
           <td data-hook="admin_shipping_methods_index_row_actions" class="actions actions-2 text-right">
             <%= link_to_edit(shipping_method, no_text: true) if can? :edit, shipping_method %>
