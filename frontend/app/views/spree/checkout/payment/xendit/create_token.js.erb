@@ -1,0 +1,51 @@
+var tokenData =  {
+  "amount": "<%= current_order.amount.to_f %>",
+  "card_number": "<%= @payment_hash["number"].tr(' ', '') %>",
+  "card_exp_month": "<%= @payment_hash["expiry"].split(" / ")[0] %>",
+  "card_exp_year": "<%= @payment_hash["expiry"].split(" / ")[1] %>",
+  "card_cvn": "<%= @payment_hash["verification_value"] %>",
+  "is_multiple_use": false,
+  "should_authenticate": true
+}
+
+Xendit.card.createToken(tokenData, xenditResponseHandler);
+
+function xenditResponseHandler (err, creditCardCharge) {
+  console.log(creditCardCharge)
+  if (err) {
+      return displayError(err);
+  }
+
+  if (creditCardCharge.status === 'APPROVED' || creditCardCharge.status === 'VERIFIED') {
+      displaySuccess(creditCardCharge);
+  } else if (creditCardCharge.status === 'IN_REVIEW') {
+      window.open(creditCardCharge.payer_authentication_url, 'sample-inline-frame');
+      $('.overlay').show();
+      $('#three-ds-container').show();
+  } else if (creditCardCharge.status === 'FRAUD') {
+      displayError(creditCardCharge);
+  } else if (creditCardCharge.status === 'FAILED') {
+      displayError(creditCardCharge);
+  }
+}
+
+function displayError (err) {
+  $('input[type="submit"]').removeClass('disabled')
+  $('#three-ds-container').hide();
+  $('.overlay').hide();
+  alert(err.message)
+  console.log(err)
+};
+
+function displaySuccess (creditCardCharge) {
+  $('input[type="submit"]').removeClass('disabled')
+  $('#checkout_form_payment').removeAttr('data-remote')
+  $('#checkout_form_payment').removeData("remote");
+  $('#three-ds-container').hide();
+  $('.overlay').hide();
+  $('.js-tokenizationStatus').val(creditCardCharge.id)
+  $('.js-tokenId').val(creditCardCharge.status)
+  $('#checkout_form_payment')[0].submit();
+  console.log(JSON.stringify(creditCardCharge, null, 4))
+}
+

@@ -4,6 +4,8 @@ module Spree
   # checkout which has nothing to do with updating an order that this approach
   # is waranted.
   class CheckoutController < Spree::StoreController
+    skip_before_action :verify_authenticity_token, only: :update
+    before_action :get_xendit_token, only: :update
     before_action :load_order_with_lock
     before_action :ensure_valid_state_lock_version, only: [:update]
     before_action :set_state_if_present
@@ -27,6 +29,7 @@ module Spree
     def update
       if @order.update_from_params(params, permitted_checkout_attributes, request.headers.env)
         @order.temporary_address = !params[:save_user_address]
+
         unless @order.next
           flash[:error] = @order.errors.full_messages.join("\n")
           redirect_to(checkout_state_path(@order.state)) && return
@@ -45,7 +48,20 @@ module Spree
       end
     end
 
+    # def edit
+    #   super
+    # end
+
     private
+
+    def get_xendit_token
+      return unless params[:state].eql?('payment')
+      payment_method_id = params[:order][:payments_attributes].first[:payment_method_id].to_s
+      @payment_hash     = params[:payment_source][payment_method_id]
+      unless @payment_hash[:token_id].eql?('VERIFIED') && @payment_hash[:tokenization_status].present?
+        render 'spree/checkout/payment/xendit/create_token' and return
+      end
+    end
 
     def unknown_state?
       (params[:state] && !@order.has_checkout_step?(params[:state])) ||
