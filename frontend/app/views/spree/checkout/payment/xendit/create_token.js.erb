@@ -20,7 +20,7 @@ function xenditResponseHandler (err, creditCardCharge) {
       displaySuccess(creditCardCharge);
   } else if (creditCardCharge.status === 'IN_REVIEW') {
       window.open(creditCardCharge.payer_authentication_url, 'sample-inline-frame');
-      $('.overlay').show();
+      $('.global-overlay').show();
       $('#three-ds-container').show();
   } else if (creditCardCharge.status === 'FRAUD') {
       displayError(creditCardCharge);
@@ -32,7 +32,7 @@ function xenditResponseHandler (err, creditCardCharge) {
 function displayError (err) {
   $('input[type="submit"]').removeClass('disabled')
   $('#three-ds-container').hide();
-  $('.overlay').hide();
+  $('.global-overlay').hide();
   alert(err.message)
   console.log(err)
 };
@@ -42,7 +42,7 @@ function displaySuccess (creditCardCharge) {
   $('#checkout_form_payment').removeAttr('data-remote')
   $('#checkout_form_payment').removeData("remote");
   $('#three-ds-container').hide();
-  $('.overlay').hide();
+  $('.global-overlay').hide();
   $('.js-tokenizationStatus').val(creditCardCharge.id)
   $('.js-tokenId').val(creditCardCharge.status)
   $('#checkout_form_payment')[0].submit();
