@@ -25,22 +25,61 @@ module Spree
       end
     end
 
+    def logger
+      puts "==================================================="
+      puts "==================================================="
+      puts "==================================================="
+      puts "==================================================="
+      puts "==================================================="
+      puts "==================================================="
+      puts "==================================================="
+      puts "==================================================="
+      puts "==================================================="
+      puts "==================================================="
+      puts "==================================================="
+      puts "==================================================="
+      puts "==================================================="
+      puts "==================================================="
+      puts "==================================================="
+    end
+
     def authorize(_money, credit_card, _options = {})
       # profile_id = credit_card.gateway_customer_profile_id
       # if VALID_CCS.include?(credit_card.number) || (profile_id && profile_id.starts_with?('BGS-'))
-        ActiveMerchant::Billing::Response.new(true, 'Bogus Gateway: Forced success', {}, test: true, authorization: '12345', avs_result: { code: 'D' })
+      puts 'authorize'
+      # profile_id = credit_card.gateway_customer_profile_id
+      # if VALID_CCS.include?(credit_card.number) || (profile_id && profile_id.starts_with?('BGS-'))
+        # ActiveMerchant::Billing::Response.new(true, 'Bogus Gateway: Forced success', {}, test: true, authorization: '12345', avs_result: { code: 'D' })
       # else
       #   ActiveMerchant::Billing::Response.new(false, 'Bogus Gateway: Forced failure', { message: 'Bogus Gateway: Forced failure' }, test: true)
       # end
+      purchase_or_authorize(_money, credit_card, _options)
+    end
+
+    def purchase_or_authorize(_money, credit_card, _options = {})
+      logger
+      puts _money.inspect
+      puts credit_card.inspect
+      puts _options.inspect
+      res = XenditService.new.charge_credit_card(token_id: credit_card.tokenization_status, amount: _money.to_s[0..-3], external_id: _options[:order_id])
+      puts res
+      logger
+      if res["error_code"]
+        ActiveMerchant::Billing::Response.new(false, "Credit Card Gateway: Failure #{res[:message]}", { message: res[:message] }, test: true)
+      else
+        ActiveMerchant::Billing::Response.new(true, 'Credit Card Gateway: success', {}, test: true, authorization: '12345', avs_result: { code: 'D' })
+      end
     end
 
     def purchase(_money, credit_card, _options = {})
       # profile_id = credit_card.gateway_customer_profile_id
       # if VALID_CCS.include?(credit_card.number) || (profile_id && profile_id.starts_with?('BGS-'))
-        ActiveMerchant::Billing::Response.new(true, 'Bogus Gateway: Forced success', {}, test: true, authorization: '12345', avs_result: { code: 'M' })
+      # ActiveMerchant::Billing::Response.new(true, 'Bogus Gateway: Forced success', {}, test: true, authorization: '12345', avs_result: { code: 'D' })
       # else
         # ActiveMerchant::Billing::Response.new(false, 'Bogus Gateway: Forced failure', message: 'Bogus Gateway: Forced failure', test: true)
       # end
+      purchase_or_authorize(_money, credit_card, _options)
+
     end
 
     def credit(_money, _credit_card, _response_code, _options = {})
