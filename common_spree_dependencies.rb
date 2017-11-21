@@ -16,6 +16,7 @@ end
 platforms :ruby do
   gem 'mysql2'
   gem 'pg'
+  gem 'httparty'
 end
 
 group :test do
