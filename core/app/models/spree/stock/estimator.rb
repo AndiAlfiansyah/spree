@@ -29,6 +29,7 @@ module Spree
       end
 
       def calculate_shipping_rates(package, ui_filter)
+        # Sampe Disini Kemarin Kita
         shipping_methods(package, ui_filter).map do |shipping_method|
           cost = shipping_method.calculator.compute(package)
 

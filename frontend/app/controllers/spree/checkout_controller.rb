@@ -55,12 +55,25 @@ module Spree
     private
 
     def get_xendit_token
-      return unless params[:state].eql?('payment')
+      puts params.inspect
+      asdasd
+      return unless params[:state].eql?('payment') && params[:order][:payments_attributes]
       payment_method_id = params[:order][:payments_attributes].first[:payment_method_id].to_s
+      payment_method    = PaymentMethod.find(payment_method_id)
+      return unless payment_method.kind_of?(Spree::Gateway::Xendit)
+
       @payment_hash     = params[:payment_source][payment_method_id]
+      puts current_order.inspect
+      puts current_order.amount.to_i
+      puts current_order.amount.to_f
       unless @payment_hash[:token_id].eql?('VERIFIED') && @payment_hash[:tokenization_status].present?
         render 'spree/checkout/payment/xendit/create_token' and return
       end
+    end
+
+    def get_cost
+      return unless params[:state].eql?('delivery')
+
     end
 
     def unknown_state?

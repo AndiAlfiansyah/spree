@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  expiry_date: 2017-11-21 14:51:07
+  invoice_url: MyString
+  amout: 1
+  payer_email: MyString
+  user_id: 1
+  description: MyString
+  external_id: 1
+  status: MyString
+  invoice_id: 1
+
+two:
+  expiry_date: 2017-11-21 14:51:07
+  invoice_url: MyString
+  amout: 1
+  payer_email: MyString
+  user_id: 1
+  description: MyString
+  external_id: 1
+  status: MyString
+  invoice_id: 1
