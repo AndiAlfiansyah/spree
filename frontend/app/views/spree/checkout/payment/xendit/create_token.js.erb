@@ -1,5 +1,5 @@
 var tokenData =  {
-  "amount": "<%= current_order.amount.to_f %>",
+  "amount": "<%= current_order.display_total.money.to_s.to_i %>",
   "card_number": "<%= @payment_hash["number"].tr(' ', '') %>",
   "card_exp_month": "<%= @payment_hash["expiry"].split(" / ")[0] %>",
   "card_exp_year": "<%= @payment_hash["expiry"].split(" / ")[1] %>",

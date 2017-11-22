@@ -55,7 +55,6 @@ module Spree
     private
 
     def get_xendit_token
-      puts params.inspect
       return unless params[:state].eql?('payment') && params[:order][:payments_attributes]
       payment_method_id = params[:order][:payments_attributes].first[:payment_method_id].to_s
       payment_method    = PaymentMethod.find(payment_method_id)

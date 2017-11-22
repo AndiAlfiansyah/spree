@@ -26,6 +26,10 @@ module Spree
       @money.format(@options)
     end
 
+    def idr
+      to_s.to_i
+    end
+
     def to_html(options = { html: true })
       output = @money.format(@options.merge(options))
       if options[:html]

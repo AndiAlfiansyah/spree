@@ -16,6 +16,8 @@ module Spree
 
     belongs_to :country, class_name: 'Spree::Country'
     belongs_to :state, class_name: 'Spree::State', optional: true
+    belongs_to :city, class_name: 'Spree::City', optional: true
+    belongs_to :subdistrict, class_name: 'Spree::Subdistrict', optional: true
 
     has_many :shipments, inverse_of: :address
 

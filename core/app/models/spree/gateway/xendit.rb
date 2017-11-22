@@ -62,7 +62,7 @@ module Spree
       puts credit_card.inspect
       puts _options.inspect
       # res = XenditService.new.charge_credit_card(token_id: credit_card.tokenization_status, amount: _money.to_s[0..-3], external_id: _options[:order_id])
-      res = XenditService.new.charge_credit_card(token_id: credit_card.tokenization_status, amount: 1000000, external_id: _options[:order_id])
+      res = XenditService.new.charge_credit_card(token_id: credit_card.tokenization_status, amount: _money.to_s[0..-3], external_id: _options[:order_id])
       puts res
       logger
       if res["error_code"]
