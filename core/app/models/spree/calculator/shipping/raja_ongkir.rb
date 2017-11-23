@@ -49,7 +49,9 @@ module Spree
       puts "=============="
       puts "=============="
       # 107 Cimahi
-      service = RajaOngkirService.find_rates(24, package.order.bill_address.subdistrict_id, package.weight, calculable.code)
+      # 23 Bandung
+      # 24 Bandung Barat
+      service = RajaOngkirService.find_rates(23, package.order.bill_address.subdistrict_id, package.weight, calculable.code)
       puts service
       cost    = service.present? ? RajaOngkirService.get_cost(service) : 0
       puts cost
