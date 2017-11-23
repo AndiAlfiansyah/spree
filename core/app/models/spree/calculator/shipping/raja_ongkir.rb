@@ -34,8 +34,10 @@ module Spree
       puts "=============="
       puts "=============="
       puts "Weight: #{package.weight}"
-      puts "From: #{package.stock_location.city}"
-      puts "Destination: #{package.order.bill_address.city_id}"
+      # puts "From: #{package.stock_location.city}"
+      puts "From: 368"
+      puts "Destination: #{package.order.bill_address.subdistrict_id}"
+      puts "Code: #{calculable.code}"
       puts "=============="
       puts "=============="
       puts "=============="
@@ -47,8 +49,9 @@ module Spree
       puts "=============="
       puts "=============="
       # 107 Cimahi
-      service = RajaOngkirService.find_rates(24, package.order.bill_address.city_id, package.weight, 'REG')
-      cost    = service ? RajaOngkirService.get_cost(service) : 0
+      service = RajaOngkirService.find_rates(368, package.order.bill_address.subdistrict_id, package.weight, calculable.code)
+      puts service
+      cost    = service.present? ? RajaOngkirService.get_cost(service) : 0
       puts cost
       cost
     end
