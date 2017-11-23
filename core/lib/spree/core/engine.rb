@@ -39,6 +39,7 @@ module Spree
         app.config.spree.payment_methods = [
           Spree::Gateway::Bogus,
           Spree::Gateway::BogusSimple,
+          Spree::Gateway::Xendit::TransferBank,
           Spree::PaymentMethod::Check,
           Spree::PaymentMethod::StoreCredit
         ]
