@@ -51,7 +51,8 @@ module Spree
       # 107 Cimahi
       # 23 Bandung
       # 24 Bandung Barat
-      service = RajaOngkirService.find_rates(23, package.order.bill_address.subdistrict_id, package.weight, calculable.code)
+      # 363 Bandung KOTA - Regol
+      service = RajaOngkirService.find_rates(363, package.order.bill_address.subdistrict_id, package.weight, calculable.code)
       puts service
       cost    = service.present? ? RajaOngkirService.get_cost(service) : 0
       puts cost
