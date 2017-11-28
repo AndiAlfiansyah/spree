@@ -106,7 +106,7 @@ module Spree
       end
 
       values.to_a.map! do |ov|
-        "#{ov.option_type.presentation}: #{ov.presentation}"
+        "#{ov.presentation}"
       end
 
       values.to_sentence(words_connector: ', ', two_words_connector: ', ')
