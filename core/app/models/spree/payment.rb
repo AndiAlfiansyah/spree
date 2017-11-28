@@ -200,16 +200,16 @@ module Spree
     end
 
     def create_payment_profile
-      # Don't attempt to create on bad payments.
-      return if has_invalid_state?
-      # Payment profile cannot be created without source
-      return unless source
-      # Imported payments shouldn't create a payment profile.
-      return if source.imported
+    #   # Don't attempt to create on bad payments.
+    #   return if has_invalid_state?
+    #   # Payment profile cannot be created without source
+    #   return unless source
+    #   # Imported payments shouldn't create a payment profile.
+    #   return if source.imported
 
-      payment_method.create_profile(self)
-    rescue ActiveMerchant::ConnectionError => e
-      gateway_error e
+    #   payment_method.create_profile(self)
+    # rescue ActiveMerchant::ConnectionError => e
+    #   gateway_error e
     end
 
     def split_uncaptured_amount

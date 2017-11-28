@@ -5,4 +5,8 @@ module Spree
                       optional: true
     has_many :payments, as: :source
   end
+
+  def self.imported
+    true
+  end
 end

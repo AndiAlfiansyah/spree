@@ -241,6 +241,21 @@ module Spree
                 attributes[:payments_attributes].first[:request_env] = request_env
               end
 
+              if attributes[:payments_attributes]
+                payment_method = PaymentMethod.find(attributes[:payments_attributes].first[:payment_method_id])
+                if payment_method.kind_of?(Spree::Gateway::Xendit::TransferBank)
+                  spree_transaction = Spree::TransferInvoice.create!({
+                    payer_email: user.email,
+                    amout: display_total.money.to_s.to_i,
+                    user_id: user.id,
+                    external_id: id,
+                    payment_method: payment_method,
+                    description: "Invoice for #{user.email}"
+                  })
+                  attributes[:payments_attributes].first[:source] = spree_transaction
+                end
+              end
+
               success = update_attributes(attributes)
               set_shipments_cost if shipments.any?
             end
