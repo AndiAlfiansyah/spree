@@ -33,7 +33,7 @@
       <div data-hook="admin_product_form_price">
         <%= f.field_container :price, class: ['form-group'] do %>
           <%= f.label :price, raw(Spree.t(:master_price) + content_tag(:span, ' *', class: "required")) %>
-          <%= f.text_field :price, value: number_to_currency(@product.price, unit: ''), class: 'form-control', disabled: (cannot? :update, @product.price) %>
+          <%= f.text_field :price, value: number_to_currency(@product.price, unit: ''), class: 'form-control prices', disabled: (cannot? :update, @product.price) %>
           <%= f.error_message_on :price %>
         <% end %>
       </div>
@@ -43,6 +43,28 @@
           <%= f.label :cost_price, Spree.t(:cost_price) %>
           <%= f.text_field :cost_price, value: number_to_currency(@product.cost_price, unit: ''), class: 'form-control' %>
           <%= f.error_message_on :cost_price %>
+        <% end %>
+      </div>
+
+      <div data-hook="admin_product_form_cost_price" class="alpha two columns">
+          <label>Potongan</label>
+          <input type="text" name="pieces" id="pot" class="form-control pieces">
+      </div>
+
+      <div data-hook="admin_product_form_cost_price" class="alpha two columns">
+          <label>Pilihan Untun Potongan</label>
+          <select class="form-control js-discount" id="discount">
+            <option></option>
+            <option value="1">Persentase</option>
+            <option value="2">Nominal</option>
+          </select>
+      </div>
+
+      <div data-hook="admin_product_form_cost_price" class="alpha two columns">
+         <%= f.field_container :discount, class: ['form-group'] do %>
+          <%= f.label :discount, raw(Spree.t(:discount) + content_tag(:span, ' *', class: "required")) %>
+          <%= f.text_field :discount, value: number_to_currency(@product.discount, unit: ''), class: 'form-control result', disabled: (cannot? :update, @product.price) %>
+          <%= f.error_message_on :discount %>
         <% end %>
       </div>
       <div data-hook="admin_product_form_cost_currency" class="omega two columns">

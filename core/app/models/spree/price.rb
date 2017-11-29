@@ -16,7 +16,7 @@ module Spree
     }
 
     extend DisplayMoney
-    money_methods :amount, :price
+    money_methods :amount, :price, :discount
 
     self.whitelisted_ransackable_attributes = ['amount']
 

@@ -8,7 +8,7 @@ module Spree
               class_name: 'Spree::Price',
               dependent: :destroy
 
-      delegate :display_price, :display_amount, :price, :currency, :price=,
+      delegate :display_price, :display_amount, :display_discount, :price, :currency, :price=, :discount, :discount=,
                :price_including_vat_for, :currency=, to: :find_or_build_default_price
 
       after_save :save_default_price

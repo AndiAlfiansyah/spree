@@ -5,7 +5,6 @@ module Spree
 
     def index
       @searcher = build_searcher(params.merge(include_images: true))
-      @products = Spree::Product.all.order(id: :desc)
       @products = @searcher.retrieve_products
       @products = @products.includes(:possible_promotions) if @products.respond_to?(:includes)
       @products = @products.order(id: :desc)

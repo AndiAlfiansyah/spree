@@ -114,13 +114,13 @@ module Spree
     self.whitelisted_ransackable_scopes = %w[not_discontinued]
 
     [
-      :sku, :price, :currency, :weight, :height, :width, :depth, :is_master,
-      :cost_currency, :price_in, :amount_in, :cost_price
+      :sku, :price, :currency, :weight, :height, :width, :depth, :is_master, :discount,
+      :cost_currency, :price_in, :amount_in, :cost_price, :discount
     ].each do |method_name|
       delegate method_name, :"#{method_name}=", to: :find_or_build_master
     end
 
-    delegate :display_amount, :display_price, :has_default_price?,
+    delegate :display_amount, :display_price, :display_discount, :has_default_price?,
              :images, to: :find_or_build_master
 
     alias master_images images
