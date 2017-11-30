@@ -15,10 +15,9 @@ module Spree
 
     has_many :prototype_taxons, class_name: 'Spree::PrototypeTaxon', dependent: :destroy
     has_many :prototypes, through: :prototype_taxons, class_name: 'Spree::Prototype'
-
+    has_many :slides, class_name: 'Spree::Slide', foreign_key: 'taxons_id'
     has_many :promotion_rule_taxons, class_name: 'Spree::PromotionRuleTaxon', dependent: :destroy
     has_many :promotion_rules, through: :promotion_rule_taxons, class_name: 'Spree::PromotionRule'
-
     validates :name, presence: true, uniqueness: { scope: [:parent_id, :taxonomy_id], allow_blank: true }
     validates :permalink, uniqueness: { case_sensitive: false }
     with_options length: { maximum: 255 }, allow_blank: true do
