@@ -52,7 +52,7 @@
       </div>
 
       <div data-hook="admin_product_form_cost_price" class="alpha two columns">
-          <label>Pilihan Untun Potongan</label>
+          <label>Pilihan Untuk Potongan</label>
           <select class="form-control js-discount" id="discount">
             <option></option>
             <option value="1">Persentase</option>
@@ -62,7 +62,7 @@
 
       <div data-hook="admin_product_form_cost_price" class="alpha two columns">
          <%= f.field_container :discount, class: ['form-group'] do %>
-          <%= f.label :discount, raw(Spree.t(:discount) + content_tag(:span, ' *', class: "required")) %>
+          <%= f.label :discount, raw(Spree.t(:price_discount) + content_tag(:span, ' *', class: "required")) %>
           <%= f.text_field :discount, value: number_to_currency(@product.discount, unit: ''), class: 'form-control result', disabled: (cannot? :update, @product.price) %>
           <%= f.error_message_on :discount %>
         <% end %>
