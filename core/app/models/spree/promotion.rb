@@ -6,7 +6,7 @@ module Spree
     attr_reader :eligibility_errors
 
     belongs_to :promotion_category, optional: true
-
+    # belongs_to :adjustments, class_name: 'Spree::Adjustments'
     has_many :promotion_rules, autosave: true, dependent: :destroy
     alias rules promotion_rules
 

@@ -27,7 +27,7 @@ module Spree
       belongs_to :source
     end
     belongs_to :order, class_name: 'Spree::Order', inverse_of: :all_adjustments
-
+    # has_many :promotions, class_name: 'Spree::Promotion'
     validates :adjustable, :order, :label, presence: true
     validates :amount, numericality: true
 
