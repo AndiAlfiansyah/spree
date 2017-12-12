@@ -38,6 +38,7 @@ module Spree
       puts "From: 368"
       puts "Destination: #{package.order.bill_address.subdistrict_id}"
       puts "Code: #{calculable.code}"
+      puts "Courier: #{calculable.admin_name.downcase}"
       puts "=============="
       puts "=============="
       puts "=============="
@@ -52,7 +53,7 @@ module Spree
       # 23 Bandung
       # 24 Bandung Barat
       # 363 Bandung KOTA - Regol
-      service = RajaOngkirService.find_rates(363, package.order.bill_address.subdistrict_id, package.weight, calculable.code)
+      service = RajaOngkirService.find_rates(363, package.order.bill_address.subdistrict_id, package.weight, calculable.code, calculable.admin_name.downcase)
       puts service
       cost    = service.present? ? RajaOngkirService.get_cost(service) : 0
       puts cost
