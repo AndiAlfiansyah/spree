@@ -55,6 +55,21 @@
             </div>
           </div>
         </div>
+        <div class="row">
+          <div class="col-xs-12 col-md-6">
+              <div class="form-group" data-hook="admin_general_setting_mail_from_address">
+                <%= f.label :logo %>
+                <%= f.file_field :image, class: 'form-control'  %>
+              </div>
+          </div>
+          <div class="col-xs-12 col-md-6">
+              <div class="form-group" data-hook="admin_general_setting_mail_from_address">
+              <%= f.label :preview %><br>
+                <% logo = Spree::Store.first %>
+                <%= image_tag(logo.image, class: 'priview-text-logo') %>
+              </div>
+          </div>
+        </div>
       <% end %>
 
       <div class="row">
@@ -101,7 +116,7 @@
               </div>
             </div>
           </div>
-
+        
         </div>
         <div class="col-xs-12 col-md-6">
 
