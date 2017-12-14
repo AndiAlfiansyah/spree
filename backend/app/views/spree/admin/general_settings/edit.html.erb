@@ -2,7 +2,7 @@
   <%= Spree.t(:general_settings) %>
 <% end %>
 
-<%= form_tag admin_general_settings_path, method: :put do %>
+<%= form_for Spree::Store.new, as: @stores, url: admin_general_settings_path(@stores) , method: :put do %>
   <div id="preferences" data-hook>
 
     <fieldset class="general no-border-top">
@@ -55,21 +55,22 @@
             </div>
           </div>
         </div>
-        <!-- <div class="row">
+        <div class="row">
           <div class="col-xs-12 col-md-6">
               <div class="form-group" data-hook="admin_general_setting_mail_from_address">
-                <%#= f.label :logo %>
-                <%#= f.file_field :image, class: 'form-control'  %>
+                <%= f.label :logo %>
+                <%= f.file_field :image, class: 'form-control'  %>
               </div>
           </div>
           <div class="col-xs-12 col-md-6">
               <div class="form-group" data-hook="admin_general_setting_mail_from_address">
-              <%#= f.label :preview %><br>
-                <%# logo = Spree::Store.first %>
-                <%#= image_tag(logo.image, class: 'priview-text-logo') %>
+              <%= f.label :preview %><br>
+                <% logo = Spree::Store.first %>
+                <!-- <img src="<%#= image_path('logo')%>" class="priview-text-logo"> -->
+                <%= image_tag(logo.image, class: 'priview-text-logo') %>
               </div>
           </div>
-        </div> -->
+        </div>
       <% end %>
 
       <div class="row">
