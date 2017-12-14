@@ -4,9 +4,9 @@
     <div class="container-fluid">
       <div class="row">
         <div class="navbar-header col-xs-3 col-md-2">
-          <% logo = Spree::Store.first.image %>
+          <%# logo = Spree::Store.first.image %>
           <%= link_to(
-            image_tag(logo, id: 'logo'),
+            image_tag('LOGO TG Merah.png', id: 'logo'),
             spree.admin_path,
             class: "logo navbar-brand"
           ) %>
