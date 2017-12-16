@@ -4,6 +4,7 @@ module Spree
     belongs_to :user, class_name: Spree.user_class.to_s, foreign_key: 'user_id',
                       optional: true
     has_many :payments, as: :source
+    has_many :virtual_accounts
   end
 
   def self.imported

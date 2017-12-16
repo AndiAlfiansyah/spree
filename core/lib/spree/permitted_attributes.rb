@@ -47,7 +47,7 @@ module Spree
 
     @@inventory_unit_attributes = [:shipment, :shipment_id, :variant_id]
 
-    @@line_item_attributes = [:id, :variant_id, :quantity]
+    @@line_item_attributes = [:id, :variant_id, :quantity, :discount]
 
     @@option_type_attributes = [:name, :presentation, :option_values_attributes]
 
@@ -102,7 +102,10 @@ module Spree
       :meta_description, :meta_keywords, :meta_title, :child_index]
 
     # TODO: Should probably use something like Spree.user_class.attributes
-    @@user_attributes = [:email, :password, :password_confirmation, :first_name, :last_name, :image]
+    @@user_attributes = [:email, :password, :password_confirmation, :first_name, :last_name, :image, 
+      bill_address_attributes: [:state_id, :city_id, :subdistrict_id, :zipcode, :address1],
+      ship_address_attributes: [:state_id, :city_id, :subdistrict_id, :zipcode, :address2]
+    ]
 
     @@variant_attributes = [
       :name, :presentation, :cost_price, :discontinue_on, :lock_version,

@@ -5,7 +5,6 @@ module Spree
     helper 'spree/products', 'spree/orders'
 
     respond_to :html
-
     before_action :assign_order_with_lock, only: :update
     skip_before_action :verify_authenticity_token, only: [:populate]
 
