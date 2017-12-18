@@ -1,7 +1,17 @@
 <div data-hook="admin_inside_taxonomy_form" class="form-group">
   <%= f.field_container :name, class: ['form-group'] do %>
-    <%= f.label :name, Spree.t(:name) %> <span class="required">*</span>
-    <%= f.text_field :name, class: 'form-control' %>
+	<div class="row">
+	  	<div class="col-md-6">
+		    <%= f.label :name, Spree.t(:name) %> <span class="required">*</span>
+		    <%= f.text_field :name, class: 'form-control' %>
+	  	</div>
+	  	<div class="col-md-6">
+		    <label>
+			    <%= Spree.t(:show_in_menu) %><span class="required">*</span>
+			    <%= f.check_box :published, class: "form-control" %>
+		    </label>
+	  	</div>
+  	</div>
     <%= f.error_message_on :name, class: 'error-message' %>
   <% end %>
 </div>
