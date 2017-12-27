@@ -6,7 +6,6 @@ Spree::Core::Engine.add_routes do
     end
 
     resources :promotion_categories, except: [:show]
-    resources :promotion_items
     resources :zones
 
     resources :countries do
