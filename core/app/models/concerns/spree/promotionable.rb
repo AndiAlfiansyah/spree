@@ -2,11 +2,11 @@ module Spree
   module Promotionable
     extend ActiveSupport::Concern
 
-    included do 
-    	attr_accessor :my_promotion_item, :total_items, :after_discount
+    included do
+    	attr_accessor :my_promotion_item, :total_items, :after_discount, :total_discount_from_promo
     end
 
-    
+
     def has_promo?
     	# itung jumlah product * quantity
     	# jika lebih dari > true
@@ -17,7 +17,7 @@ module Spree
     	# result_product + total_quantity
 
     	check_if_promo_available
-    	
+
     end
 
     def check_if_promo_available
@@ -31,22 +31,23 @@ module Spree
 
     def display_total_after_discount
     	return self.total unless has_promo?
-    	
-    	item 	= my_promotion_item.quantity
-    	action 	= my_promotion_item.action_disc.downcase
-
-    	return unless total_items.to_s.to_i >= item.to_s.to_i
-
-		price_order = item_total.to_i
-		discount = my_promotion_item.discount
-		
-		if action == "persentase"
-			formula2 = (price_order.to_i * discount.to_i)/100
-			puts formula = price_order - formula2
-		else
-			puts formula = price_order.to_i - discount.to_i
-		end
+        calculate_discount_promo
+        price_order = item_total.to_i
+        puts formula = price_order.to_i - self.total_discount_from_promo
 		self.after_discount = formula
+    end
+
+    def calculate_discount_promo
+        return 0 unless has_promo?
+        item    = my_promotion_item.quantity
+        action  = my_promotion_item.action_disc.downcase
+
+        return unless total_items.to_s.to_i >= item.to_s.to_i
+
+        price_order = item_total.to_i
+        discount = my_promotion_item.discount
+
+        self.total_discount_from_promo = action.eql?("persentase") ? (price_order.to_i * discount.to_i)/100 : discount.to_i
     end
   end
 end

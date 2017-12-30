@@ -30,14 +30,18 @@ module Spree
       puts _options.inspect
       # profile_id = credit_card.gateway_customer_profile_id
       # if VALID_CCS.include?(credit_card.number) || (profile_id && profile_id.starts_with?('BGS-'))
+
       orders = Spree::Order.find_by!(number: number.to_s.split('-').first)
+      puts _money.to_s[0..-3].to_i
+      puts orders.calculate_discount_promo.to_i
+      puts price = _money.to_s[0..-3].to_i - orders.calculate_discount_promo.to_i
       puts orders.inspect
-      res = XenditService.new.create_invoice(external_id: _options[:order_id], payer_email: _options[:email], description: _options[:order_id], amount: _money.to_s[0..-3] )
+      res = XenditService.new.create_invoice(external_id: _options[:order_id], payer_email: _options[:email], description: _options[:order_id], amount: price )
       # binding.pry
       res["available_banks"].each do |available_bank|
         credit_card.virtual_accounts.create(bank_code: available_bank['bank_code'], collection_type: available_bank['collection_type'], bank_account_number: available_bank['bank_account_number'], transfer_amount: available_bank['transfer_amount'], bank_branch: available_bank['bank_branch'], account_holder_name: available_bank['account_holder_name'], identity_amount: available_bank['identity_amount'])
       end
-      
+
         ActiveMerchant::Billing::Response.new(true, 'Bogus Gateway: Forced success', {}, test: true, authorization: '12345', avs_result: { code: 'D' })
       # else
       #   ActiveMerchant::Billing::Response.new(false, 'Bogus Gateway: Forced failure', { message: 'Bogus Gateway: Forced failure' }, test: true)

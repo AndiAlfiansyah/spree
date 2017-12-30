@@ -53,16 +53,26 @@ module Spree
       # else
       #   ActiveMerchant::Billing::Response.new(false, 'Bogus Gateway: Forced failure', { message: 'Bogus Gateway: Forced failure' }, test: true)
       # end
+      number = _options[:order_id]
+      orders = Spree::Order.find_by!(number: number.to_s.split('-').first)
+      puts _money.to_s[0..-3].to_i
+      puts orders.calculate_discount_promo.to_i
+      puts price = _money.to_s[0..-3].to_i - orders.calculate_discount_promo.to_i
       purchase_or_authorize(_money, credit_card, _options)
     end
 
     def purchase_or_authorize(_money, credit_card, _options = {})
       logger
+      number = _options[:order_id]
+      orders = Spree::Order.find_by!(number: number.to_s.split('-').first)
       puts _money.inspect
       puts credit_card.inspect
       puts _options.inspect
+      puts _money.to_s[0..-3].to_i
+      puts orders.calculate_discount_promo.to_i
+      puts price = _money.to_s[0..-3].to_i - orders.calculate_discount_promo.to_i
       # res = XenditService.new.charge_credit_card(token_id: credit_card.tokenization_status, amount: _money.to_s[0..-3], external_id: _options[:order_id])
-      res = XenditService.new.charge_credit_card(token_id: credit_card.tokenization_status, amount: _money.to_s[0..-3], external_id: _options[:order_id])
+      res = XenditService.new.charge_credit_card(token_id: credit_card.tokenization_status, amount: price, external_id: _options[:order_id])
       puts res
       logger
       if res["error_code"]
