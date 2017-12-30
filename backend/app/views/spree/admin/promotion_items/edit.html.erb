@@ -1,0 +1,11 @@
+<% content_for :page_title do %>
+  <%= link_to Spree.t(:promotion_items), spree.admin_promotion_items_url %> /
+  <%= @promotion_item.action_disc %>
+<% end %>
+
+<%= form_for @promotion_item, url: object_url, method: :put do |f| %>
+  <fieldset>
+    <%= render partial: 'form', locals: { f: f } %>
+    <%= render partial: 'spree/admin/shared/edit_resource_links' %>
+  </fieldset>
+<% end %>

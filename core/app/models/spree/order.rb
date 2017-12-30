@@ -13,6 +13,8 @@ module Spree
     include Spree::Core::NumberGenerator.new(prefix: 'R')
     include Spree::Core::TokenGenerator
 
+    include Spree::Promotionable
+
     include NumberAsParam
 
     extend Spree::DisplayMoney

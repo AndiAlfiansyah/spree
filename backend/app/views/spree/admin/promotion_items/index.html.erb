@@ -1,0 +1,35 @@
+<% content_for :page_title do %>
+  <%= plural_resource_name(Spree::PromotionItem) %>
+<% end %>
+
+<% content_for :page_actions do %>
+  <%= button_link_to Spree.t(:new_promotion_item), new_object_url, icon: 'add', class: 'btn-success' %>
+<% end if can?(:create, Spree::PromotionItem) %>
+
+
+<% if @promotion_items.any? %>
+  <table class="table">
+    <thead>
+      <th><%= Spree::PromotionItem.human_attribute_name :quantity %></th>
+      <th><%= Spree::PromotionItem.human_attribute_name :action_disc %></th>
+      <th></th>
+    </thead>
+    <tbody>
+      <% @promotion_items.each do |promotion_item| %>
+        <tr>
+          <td><%= promotion_item.quantity %></td>
+          <td><%= promotion_item.action_disc %></td>
+          <td class="actions actions-2 text-right">
+            <%= link_to_edit promotion_item, no_text: true if can?(:edit, promotion_item) %>
+            <%= link_to_delete promotion_item, no_text: true if can?(:delete, promotion_item) %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <div class="alert alert-info no-objects-found">
+    <%= Spree.t(:no_resource_found, resource: plural_resource_name(Spree::PromotionItem)) %>,
+    <%= link_to Spree.t(:add_one), new_object_url %>!
+  </div>
+<% end %>

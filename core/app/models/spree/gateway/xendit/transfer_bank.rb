@@ -26,45 +26,12 @@ module Spree
     end
 
     def authorize(_money, credit_card, _options = {})
-      puts 'authorize'
+      number = _options[:order_id]
+      puts _options.inspect
       # profile_id = credit_card.gateway_customer_profile_id
       # if VALID_CCS.include?(credit_card.number) || (profile_id && profile_id.starts_with?('BGS-'))
-      orders = Spree::Order.find_by!(id: _options[:order_id])
-      puts 'orders.inspect'
-      puts 'orders.inspect'
-      puts 'orders.inspect'
-      puts 'orders.inspect'
-      puts 'orders.inspect'
-      puts 'orders.inspect'
-      puts 'orders.inspect'
-      puts 'orders.inspect'
-      puts 'orders.inspect'
-      puts 'orders.inspect'
-      puts 'orders.inspect'
-      puts 'orders.inspect'
-      puts 'orders.inspect'
-      puts 'orders.inspect'
-      puts 'orders.inspect'
-      puts 'orders.inspect'
-      puts 'orders.inspect'
-      puts 'orders.inspect'
-      puts 'orders.inspect'
-      puts 'orders.inspect'
-      puts 'orders.inspect'
-      puts 'orders.inspect'
+      orders = Spree::Order.find_by!(number: number.to_s.split('-').first)
       puts orders.inspect
-      puts 'orders.inspect'
-      puts 'orders.inspect'
-      puts 'orders.inspect'
-      puts 'orders.inspect'
-      puts 'orders.inspect'
-      puts 'orders.inspect'
-      puts 'orders.inspect'
-      puts 'orders.inspect'
-      puts 'orders.inspect'
-      puts 'orders.inspect'
-      puts 'orders.inspect'
-      puts 'orders.inspect'
       res = XenditService.new.create_invoice(external_id: _options[:order_id], payer_email: _options[:email], description: _options[:order_id], amount: _money.to_s[0..-3] )
       # binding.pry
       res["available_banks"].each do |available_bank|

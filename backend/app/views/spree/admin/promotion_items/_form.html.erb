@@ -1,0 +1,13 @@
+<%= render partial: 'spree/admin/shared/error_messages', locals: { target: @promotion_item } %>
+<%= f.field_container :quantity, class: ['form-group'] do %>
+  <%= f.label :quantity %>
+  <%= f.text_field :quantity, class: 'form-control' %>
+<% end %>
+<%= f.field_container :action_disc, class: ['form-group'] do %>
+  <%= f.label :action_disc %>
+	<%= f.select :action_disc, options_for_select([ "Persentase", "Nominal" ]),{}, include_blank: " ", class: 'form-control'%>
+<% end %>
+<%= f.field_container :discount, class: ['form-group'] do %>
+  <%= f.label :discount %>
+  <%= f.text_field :discount, class: 'form-control' %>
+<% end %>
