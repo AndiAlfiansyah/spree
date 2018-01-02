@@ -1,5 +1,11 @@
+<% if current_order.has_promo? %>
+  <%= price = current_order.display_total_after_discount + current_order.shipment_total.to_i %>
+<% else %>
+  <%= price = current_order.total %>
+<% end %>
+
 var tokenData =  {
-  "amount": "<%= current_order.display_total_after_discount %>",
+  "amount": "<%= price %>",
   "card_number": "<%= @payment_hash["number"].tr(' ', '') %>",
   "card_exp_month": "<%= @payment_hash["expiry"].split(" / ")[0] %>",
   "card_exp_year": "<%= @payment_hash["expiry"].split(" / ")[1] %>",

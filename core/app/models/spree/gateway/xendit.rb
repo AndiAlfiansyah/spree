@@ -53,11 +53,24 @@ module Spree
       # else
       #   ActiveMerchant::Billing::Response.new(false, 'Bogus Gateway: Forced failure', { message: 'Bogus Gateway: Forced failure' }, test: true)
       # end
+
+
+
+      
+
+
+
+
+
       number = _options[:order_id]
       orders = Spree::Order.find_by!(number: number.to_s.split('-').first)
-      puts _money.to_s[0..-3].to_i
-      puts orders.calculate_discount_promo.to_i
-      puts price = _money.to_s[0..-3].to_i - orders.calculate_discount_promo.to_i
+      
+      if orders.has_promo? 
+        price = orders.display_total_after_discount + orders.shipment_total.to_i 
+      else 
+        price = orders.total 
+      end 
+
       purchase_or_authorize(_money, credit_card, _options)
     end
 
@@ -65,12 +78,13 @@ module Spree
       logger
       number = _options[:order_id]
       orders = Spree::Order.find_by!(number: number.to_s.split('-').first)
-      puts _money.inspect
-      puts credit_card.inspect
-      puts _options.inspect
-      puts _money.to_s[0..-3].to_i
-      puts orders.calculate_discount_promo.to_i
-      puts price = _money.to_s[0..-3].to_i - orders.calculate_discount_promo.to_i
+      
+      if orders.has_promo? 
+        price = orders.display_total_after_discount + orders.shipment_total.to_i 
+      else 
+        price = orders.total 
+      end
+      
       # res = XenditService.new.charge_credit_card(token_id: credit_card.tokenization_status, amount: _money.to_s[0..-3], external_id: _options[:order_id])
       res = XenditService.new.charge_credit_card(token_id: credit_card.tokenization_status, amount: price, external_id: _options[:order_id])
       puts res
@@ -78,6 +92,7 @@ module Spree
       if res["error_code"]
         ActiveMerchant::Billing::Response.new(false, "Credit Card Gateway: Failure #{res['message']}", { message: res[:message] }, test: true)
       else
+
         ActiveMerchant::Billing::Response.new(true, 'Credit Card Gateway: success', {}, test: true, authorization: '12345', avs_result: { code: 'D' })
       end
     end

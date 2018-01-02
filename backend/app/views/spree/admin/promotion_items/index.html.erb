@@ -1,11 +1,11 @@
 <% content_for :page_title do %>
   <%= plural_resource_name(Spree::PromotionItem) %>
 <% end %>
-
-<% content_for :page_actions do %>
-  <%= button_link_to Spree.t(:new_promotion_item), new_object_url, icon: 'add', class: 'btn-success' %>
-<% end if can?(:create, Spree::PromotionItem) %>
-
+<% if Spree::PromotionItem.count < 1 %>
+  <% content_for :page_actions do %>
+    <%= button_link_to Spree.t(:new_promotion_item), new_object_url, icon: 'add', class: 'btn-success apped' %>
+  <% end if can?(:create, Spree::PromotionItem) %>
+<% end %>
 
 <% if @promotion_items.any? %>
   <table class="table">

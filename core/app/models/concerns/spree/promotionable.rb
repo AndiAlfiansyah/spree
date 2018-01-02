@@ -47,7 +47,7 @@ module Spree
         price_order = item_total.to_i
         discount = my_promotion_item.discount
 
-        self.total_discount_from_promo = action.eql?("persentase") ? (price_order.to_i * discount.to_i)/100 : discount.to_i
+        puts self.total_discount_from_promo = action.eql?("persentase") ? (price_order.to_i * discount.to_i)/100 : discount.to_i
     end
   end
 end
