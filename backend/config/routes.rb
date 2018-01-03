@@ -38,6 +38,8 @@ Spree::Core::Engine.add_routes do
       resources :variants_including_master, only: [:update]
     end
 
+    resources :import_exports
+
     resources :option_types do
       collection do
         post :update_positions

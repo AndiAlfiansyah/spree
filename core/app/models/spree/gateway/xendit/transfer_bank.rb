@@ -31,11 +31,15 @@ module Spree
       # profile_id = credit_card.gateway_customer_profile_id
       # if VALID_CCS.include?(credit_card.number) || (profile_id && profile_id.starts_with?('BGS-'))
 
+      number = _options[:order_id]
       orders = Spree::Order.find_by!(number: number.to_s.split('-').first)
-      puts _money.to_s[0..-3].to_i
-      puts orders.calculate_discount_promo.to_i
-      puts price = _money.to_s[0..-3].to_i - orders.calculate_discount_promo.to_i
-      puts orders.inspect
+      
+      if orders.has_promo? 
+        price = orders.display_total_after_discount + orders.shipment_total.to_i 
+      else 
+        price = orders.total 
+      end 
+
       res = XenditService.new.create_invoice(external_id: _options[:order_id], payer_email: _options[:email], description: _options[:order_id], amount: price )
       # binding.pry
       res["available_banks"].each do |available_bank|
@@ -52,7 +56,18 @@ module Spree
       puts 'purchase'
       # profile_id = credit_card.gateway_customer_profile_id
       # if VALID_CCS.include?(credit_card.number) || (profile_id && profile_id.starts_with?('BGS-'))
-      res = create_invoice(external_id: _options[:order_id], payer_email: _options[:email], description: _options[:order_id], amount: _money.to_s[0..-3] )
+      
+      number = _options[:order_id]
+      orders = Spree::Order.find_by!(number: number.to_s.split('-').first)
+      
+      if orders.has_promo? 
+       puts price = orders.display_total_after_discount + orders.shipment_total.to_i 
+      else 
+       puts price = orders.total 
+      end 
+
+
+      res = create_invoice(external_id: _options[:order_id], payer_email: _options[:email], description: _options[:order_id], amount: price )
       puts res.inspect
 
       # create_invoice(external_id: ,money: ,)
