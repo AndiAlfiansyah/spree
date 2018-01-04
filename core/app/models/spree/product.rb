@@ -125,6 +125,14 @@ module Spree
 
     alias master_images images
 
+    def self.exort_attributes_for(type)
+      if type.eql?('xlsx')
+        no_need_to_show_attributes = [:image, :photo]
+        attribute_names.map(&:to_sym).reject { |a| no_need_to_show_attributes.include?(a) }
+        # [:created_at]
+      end
+    end
+    
     def find_or_build_master
       master || build_master
     end

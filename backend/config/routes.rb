@@ -9,6 +9,12 @@ Spree::Core::Engine.add_routes do
     resources :promotion_items
     resources :zones
 
+    namespace :export do
+      namespace :xlsx do
+        resources :resource, only: :index
+      end
+    end
+    
     resources :countries do
       resources :states
     end

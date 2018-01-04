@@ -1,53 +1,56 @@
 <% content_for :page_title do %>
   Import dan Export
 <% end %>
-
+<%= search_form_for @search, url: spree.admin_import_exports_path  do |s| %>
   <div class="form-group date-range-filter">
     <div class="date-range-filter row">
       <div class="col-md-4">
         <label>Dari Tanggal</label>
-        <input type="text" name="created_at" class="datepicker datepicker-form form-control" value="">
+        <input type="text" name="created_at_gt" class="datepicker datepicker-form form-control" value="">
       </div> 
       <div class="col-md-4">
         <label>Ke Tanggal</label>
-        <input type="text" name="created_at" class="datepicker datepicker-to form-control" value="">
+        <input type="text" name="created_at_lt" class="datepicker datepicker-to form-control" value="">
       </div>
       <div class="col-md-4">
         <label>Data</label>
         <select class="form-control" name="type">
           <option></option>
-          <option value="order">Order</option>
+          <option value="Order">Order</option>
           <option value="Product">Produk</option>
-          <option value="user">Pengguna</option>
+          <option value="User">Pengguna</option>
         </select>
       </div>  
     </div>
   </div>
-
   <div class="form-actions" style="margin-bottom: 100px;">
     <%= button Spree.t(:search), 'search' %>
   </div>
+<% end %>
 
 <% content_for :page_actions do %>
-  <%= button_link_to "Import", new_object_url, { class: "btn-success", icon: 'add', id: 'admin_new_import_export' } %>
+  <%= button_link_to "Import", new_object_url %>
 <% end if can?(:create, Spree::ImportExport) %>
 
   <table class="table">
     <thead>
       <tr data-hook="reports_header">
-        <th>Tanggal</th>
-        <th><%= Spree.t(:name) %></th>
-        <th><%= Spree.t(:description) %></th>
+        <%- @resource.exort_attributes_for('xlsx').each do |_attr| %>
+          <th><%= _attr %></th>
+        <% end %>
       </tr>
     </thead>
     <tbody>
-      <% @import_exports.each do |ei| %>
-      <tr data-hook="reports_row">
-        <td><%= ei.created_at.strftime("%d %B %Y") %></td>
-        <td><%= ei.name %></td>
-        <td><%= ei.descriptions %></td>
-        <td><a href="#">export</a></td>
-      </tr>
+      <%= button_link_to 'Export', admin_export_xlsx_resource_index_path(model: eval("Spree::#{params[:type]}").to_s, format: :xlsx) do %>
+
       <% end %>
+
+        <%- @resources.each do |resource| %>
+          <tr data-hook="reports_header">
+            <%- resource.class.exort_attributes_for('xlsx').each do |_attr| %>
+              <td><%= resource.send(_attr) %></td>
+            <% end %>
+          </tr>
+        <% end %>
     </tbody>
   </table>

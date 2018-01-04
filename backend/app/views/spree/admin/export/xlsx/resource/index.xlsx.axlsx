@@ -1,0 +1,27 @@
+# Hook into the xlsx package provided by the axlsx-rails gem
+wb = xlsx_package.workbook
+
+# Create a style we can use for record headers
+styles = xlsx_package.workbook.styles
+header_style = styles.add_style bg_color: "00",
+                                fg_color: "FF",
+                                bold: true,
+                                alignment: { horizontal: :center }
+
+# Get a list of associations. We want to export the association value rather than ID
+# e.x. Get Post#user rather than Post#user_id
+assocs = @resources.klass.reflect_on_all_associations(:belongs_to).map{|a| [a.foreign_key.to_sym, "#{a.name}"]}.to_h
+
+# Create a worksheet. Name it after the resource we're exporting
+wb.add_worksheet(name: @resource.model_name.plural.titleize) do |sheet|
+  # Get list of attributes to export
+  attrs = @resource.exort_attributes_for('xlsx')
+
+  # Add a header row using the header style we defined
+  sheet.add_row attrs.map { |n| @resources.first.class.human_attribute_name(n) }, style: header_style
+
+  # Add each row to our sheet
+  @resources.each do |row|
+    sheet.add_row attrs.map { |a| row.send(assocs[a] || a) }
+  end
+end

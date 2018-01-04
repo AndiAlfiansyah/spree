@@ -163,6 +163,14 @@ module Spree
       update_hooks.add(hook)
     end
 
+    def self.exort_attributes_for(type)
+      if type.eql?('xlsx')
+        no_need_to_show_attributes = [:image, :photo]
+        attribute_names.map(&:to_sym).reject { |a| no_need_to_show_attributes.include?(a) }
+        # [:created_at]
+      end
+    end
+    
     # Use this method in other gems that wish to register their own custom logic
     # that should be called when determining if two line items are equal.
     def self.register_line_item_comparison_hook(hook)
