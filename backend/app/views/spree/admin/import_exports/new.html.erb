@@ -1,0 +1,10 @@
+<% content_for :page_title do %>
+  <%= link_to plural_resource_name(Spree::ImportExport), spree.admin_import_exports_url %> /
+  <%= Spree.t(:new_import) %>
+<% end %>
+<%= form_for :import_export, url: admin_import_xlsx_resource_index_path do |f| %>
+  <fieldset>
+    <%= render partial: 'form', locals: { f: f } %>
+    <%= render partial: 'spree/admin/shared/new_resource_links' %>
+  </fieldset>
+<% end %>

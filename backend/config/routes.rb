@@ -15,6 +15,11 @@ Spree::Core::Engine.add_routes do
       end
     end
     
+    namespace :import do
+      namespace :xlsx do
+        resources :resource, only: :create
+      end
+    end
     resources :countries do
       resources :states
     end

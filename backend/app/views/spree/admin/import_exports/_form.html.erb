@@ -1,0 +1,5 @@
+<%= render partial: 'spree/admin/shared/error_messages', locals: { target: @import_exports } %>
+<%= f.field_container :quantity, class: ['form-group'] do %>
+  <%= f.label :file %>
+  <%= f.file_field :file, class: 'form-control' %>
+<% end %>
