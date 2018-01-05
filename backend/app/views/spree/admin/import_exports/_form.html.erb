@@ -2,4 +2,5 @@
 <%= f.field_container :file, class: ['form-group'] do %>
   <%= f.label :file %>
 	<%= f.file_field :file , class: 'form-control' %>
+  <%= hidden_field_tag :type, params[:type] %>
 <% end %>

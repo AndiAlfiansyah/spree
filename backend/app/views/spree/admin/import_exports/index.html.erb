@@ -7,7 +7,7 @@
       <div class="col-md-4">
         <label>Dari Tanggal</label>
         <input type="text" name="created_at_gt" class="datepicker datepicker-form form-control" value="">
-      </div> 
+      </div>
       <div class="col-md-4">
         <label>Ke Tanggal</label>
         <input type="text" name="created_at_lt" class="datepicker datepicker-to form-control" value="">
@@ -20,7 +20,7 @@
           <option value="Product">Produk</option>
           <option value="User">Pengguna</option>
         </select>
-      </div>  
+      </div>
     </div>
   </div>
   <div class="form-actions" style="margin-bottom: 100px;">
@@ -29,7 +29,9 @@
 <% end %>
 
 <% content_for :page_actions do %>
-  <%= button_link_to "Import", new_object_url %>
+  <%- if params[:type].present? %>
+  <%= button_link_to "Import", new_object_url(type: params[:type]) %>
+  <%- end %>
 <% end if can?(:create, Spree::ImportExport) %>
   <table class="table">
     <thead>

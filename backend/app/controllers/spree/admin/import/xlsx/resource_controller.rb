@@ -4,13 +4,13 @@ module Spree
 		  skip_before_action :verify_authenticity_token
 
 			def create
-				
+
 			  data =  extract
 			  render json: model.create(data)
 			end
 
 			def model
-			  @model ||= params[:type]
+			  @model ||= eval(params[:type])
 			end
 
 			def extract
