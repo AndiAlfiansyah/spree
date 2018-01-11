@@ -125,14 +125,22 @@ module Spree
 
     alias master_images images
 
+    def  after_count_on_hand
+      self.stock_items.pluck(:count_on_hand).sum
+    end
+
+    def count_variant
+      self.variants.to_s.to_i
+    end
+
     def self.exort_attributes_for(type)
       if type.eql?('xlsx')
-        no_need_to_show_attributes = [:image, :photo]
-        attribute_names.map(&:to_sym).reject { |a| no_need_to_show_attributes.include?(a) }
-        # [:created_at]
+        # no_need_to_show_attributes = [:image, :photo]
+        # attribute_names.map(&:to_sym).reject { |a| no_need_to_show_attributes.include?(a) }
+        [:created_at, :name, :count_variant, :slug, :after_count_on_hand]
       end
     end
-    
+
     def find_or_build_master
       master || build_master
     end
