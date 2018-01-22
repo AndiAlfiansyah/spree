@@ -22,6 +22,7 @@ module Spree
 
     def check_if_promo_available
     	promo 	= Spree::PromotionItem.first
+        return false unless promo
     	item 	= promo.quantity
 
     	is_available 			= total_items.to_i >= item.to_i
