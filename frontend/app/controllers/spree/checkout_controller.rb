@@ -20,6 +20,7 @@ module Spree
 
     before_action :setup_for_current_state
     before_action :add_store_credit_payments, :remove_store_credit_payments, only: [:update]
+    before_action :set_amount_identifier, only: [:edit]
 
     helper 'spree/orders'
 
@@ -221,6 +222,11 @@ module Spree
 
     def check_authorization
       authorize!(:edit, current_order, cookies.signed[:guest_token])
+    end
+
+    def set_amount_identifier
+      return unless params[:state].eql?('confirm') && (source = @order.payments.last.source).class.to_s.eql?("Spree::TransferInvoice") && source.amount_identifier.nil?
+      source.set_amount_identifier
     end
   end
 end
