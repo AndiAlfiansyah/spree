@@ -20,7 +20,8 @@ module Spree
     extend Spree::DisplayMoney
     money_methods :outstanding_balance, :item_total,           :adjustment_total,
                   :included_tax_total,  :additional_tax_total, :tax_total,
-                  :shipment_total,      :promo_total,          :total
+                  :shipment_total,      :promo_total,          :total,
+                  :total_to_be_paid
 
     alias display_ship_total display_shipment_total
     alias_attribute :ship_total, :shipment_total
@@ -170,7 +171,7 @@ module Spree
         # [:created_at]
       end
     end
-    
+
     # Use this method in other gems that wish to register their own custom logic
     # that should be called when determining if two line items are equal.
     def self.register_line_item_comparison_hook(hook)
@@ -180,6 +181,10 @@ module Spree
     # For compatiblity with Calculator::PriceSack
     def amount
       line_items.inject(0.0) { |sum, li| sum + li.amount }
+    end
+
+    def total_to_be_paid
+      @total_to_be_paid ||= total + payments.last.source.amount_identifier
     end
 
     # Sum of all line item amounts pre-tax

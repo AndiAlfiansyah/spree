@@ -5,6 +5,10 @@ module Spree
                       optional: true
     has_many :payments, as: :source
     has_many :virtual_accounts
+
+    def set_amount_identifier
+      update amount_identifier: rand(999)
+    end
   end
 
   def self.imported

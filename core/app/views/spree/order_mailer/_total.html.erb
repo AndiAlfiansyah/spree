@@ -3,6 +3,6 @@
     <strong><%= Spree.t('order_mailer.total') %></strong>
   </td>
   <td class="six sub-columns last right">
-    <strong><%= order.display_total %></strong>
+    <strong><%= order.display_total_to_be_paid.to_html %></strong>
   </td>
 </tr>
