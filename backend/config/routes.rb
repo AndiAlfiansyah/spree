@@ -4,7 +4,7 @@ Spree::Core::Engine.add_routes do
       resources :promotion_rules
       resources :promotion_actions
     end
-
+    resources :bank_accounts
     resources :promotion_categories, except: [:show]
     resources :promotion_items
     resources :zones
@@ -14,7 +14,7 @@ Spree::Core::Engine.add_routes do
         resources :resource, only: :index
       end
     end
-    
+
     namespace :import do
       namespace :xlsx do
         resources :resource, only: :create

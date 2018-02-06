@@ -4,6 +4,10 @@
   </ul>
 <% end %>
 
+<ul class="nav nav-sidebar">
+  <%= main_menu_tree Spree.t(:bank_account), icon: "credit-card", sub_menu: "bank_accounts", url: "#sidebar-bank-accounts" %>
+</ul>
+
 <% if can?(:admin, Spree::ReturnAuthorization) || can?(:admin, Spree::CustomerReturn) %>
   <ul class="nav nav-sidebar">
     <%= main_menu_tree Spree.t(:returns), icon: "transfer", sub_menu: "returns", url: "#sidebar-returns" %>

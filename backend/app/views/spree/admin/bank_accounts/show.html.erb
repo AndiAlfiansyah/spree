@@ -1,0 +1,74 @@
+<h1>Data Mutasi Terakhir</h1>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Date</th>
+      <th scope="col">Description</th>
+      <th scope="col">Amount</th>
+      <th scope="col">Type</th>
+      <th scope="col">Balance</th>
+      <th scope="col">Created at</th>
+      <th scope="col">Mutation ID</th>
+      <th scope="col">Note</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= @mutations.each do |mutation| %>
+      <tr>
+        <th scope="row"><% mutation.date %></th>
+        <td><% mutation.description %></td>
+        <td><% mutation.amount %></td>
+        <td><% mutation.type %></td>
+        <td><% mutation.balance %></td>
+        <td><% mutation.created_at %></td>
+        <td><% mutation.mutation_id %></td>
+        <td><% mutation.note %></td>
+      </tr>
+    <% end %>
+    <tr>
+      <th scope="row">2017-06-11 19:41:55</th>
+      <td>TARIKAN ATM 04\/06</td>
+      <td>100000</td>
+      <td>DB</td>
+      <td>9999999</td>
+      <td>2017-06-11 19:41:55</td>
+      <td>XX</td>
+      <td>Catatan mutasi</td>
+    </tr>
+    <tr>
+      <th scope="row">2017-06-11 19:41:55</th>
+      <td>TARIKAN ATM 04\/06</td>
+      <td>100000</td>
+      <td>DB</td>
+      <td>9999999</td>
+      <td>2017-06-11 19:41:55</td>
+      <td>XX</td>
+      <td>Catatan mutasi</td>
+    </tr>
+    <tr>
+      <th scope="row">2017-06-11 19:41:55</th>
+      <td>TARIKAN ATM 04\/06</td>
+      <td>100000</td>
+      <td>DB</td>
+      <td>9999999</td>
+      <td>2017-06-11 19:41:55</td>
+      <td>XX</td>
+      <td>Catatan mutasi</td>
+    </tr>
+  </tbody>
+</table>
+
+<script type="text/javascript">
+  var window_focus;
+  $(window).focus(function() {
+      window_focus = true;
+  }).blur(function() {
+      window_focus = false;
+  });
+  function checkReload(){
+      if(!window_focus){
+          location.reload();  // if not focused, reload
+      }
+  }
+  setInterval(checkReload, 5000);  // check if not focused, every 5 seconds
+</script>
