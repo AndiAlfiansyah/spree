@@ -6,55 +6,25 @@
       <th scope="col">Description</th>
       <th scope="col">Amount</th>
       <th scope="col">Type</th>
-      <th scope="col">Balance</th>
-      <th scope="col">Created at</th>
-      <th scope="col">Mutation ID</th>
       <th scope="col">Note</th>
+      <th scope="col">Balance</th>
+      <th scope="col">Created At</th>
+      <th scope="col">Mutation ID</th>
     </tr>
   </thead>
   <tbody>
-    <%= @mutations.each do |mutation| %>
+    <% @mutations.each do |mutation| %>
       <tr>
-        <th scope="row"><% mutation.date %></th>
-        <td><% mutation.description %></td>
-        <td><% mutation.amount %></td>
-        <td><% mutation.type %></td>
-        <td><% mutation.balance %></td>
-        <td><% mutation.created_at %></td>
-        <td><% mutation.mutation_id %></td>
-        <td><% mutation.note %></td>
+        <th scope="row"><%= mutation['date'].html_safe %></th>
+        <td><%= mutation['description'].html_safe %></td>
+        <td><%= mutation['amount'] %></td>
+        <td><%= mutation['type'].html_safe %></td>
+        <td><%= mutation['note'] %></td>
+        <td><%= mutation['balance'] %></td>
+        <td><%= mutation['created_at'].html_safe %></td>
+        <td><%= mutation['mutation_id'].html_safe %></td>
       </tr>
     <% end %>
-    <tr>
-      <th scope="row">2017-06-11 19:41:55</th>
-      <td>TARIKAN ATM 04\/06</td>
-      <td>100000</td>
-      <td>DB</td>
-      <td>9999999</td>
-      <td>2017-06-11 19:41:55</td>
-      <td>XX</td>
-      <td>Catatan mutasi</td>
-    </tr>
-    <tr>
-      <th scope="row">2017-06-11 19:41:55</th>
-      <td>TARIKAN ATM 04\/06</td>
-      <td>100000</td>
-      <td>DB</td>
-      <td>9999999</td>
-      <td>2017-06-11 19:41:55</td>
-      <td>XX</td>
-      <td>Catatan mutasi</td>
-    </tr>
-    <tr>
-      <th scope="row">2017-06-11 19:41:55</th>
-      <td>TARIKAN ATM 04\/06</td>
-      <td>100000</td>
-      <td>DB</td>
-      <td>9999999</td>
-      <td>2017-06-11 19:41:55</td>
-      <td>XX</td>
-      <td>Catatan mutasi</td>
-    </tr>
   </tbody>
 </table>
 

@@ -10,6 +10,7 @@ module Spree
       protected
 
       def action
+        @banks = Spree::BankAccount.get_bank_list # function to generate dynamic side bar menu for bank list
         params[:action].to_sym
       end
 
