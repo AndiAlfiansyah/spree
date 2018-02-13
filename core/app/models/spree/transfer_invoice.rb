@@ -5,6 +5,7 @@ module Spree
                       optional: true
     has_many :payments, as: :source
     has_many :virtual_accounts
+    has_many :payment_confirmations, as: :source
 
     def set_amount_identifier
       update amount_identifier: rand(999)
