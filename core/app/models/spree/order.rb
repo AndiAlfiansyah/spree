@@ -118,7 +118,7 @@ module Spree
     # Needs to happen before save_permalink is called
     before_validation :set_currency
     before_validation :clone_billing_address, if: :use_billing?
-    attr_accessor :use_billing
+    attr_accessor :use_billing, :payment_proof
 
     before_create :create_token
     before_create :link_by_email
