@@ -2,9 +2,15 @@
 
 <% content_for :page_actions do %>
   <% if @order.outstanding_balance? && can?(:create, Spree::Payment) %>
-    <span id="new_payment_section">
-      <%= button_link_to Spree.t(:new_payment), new_admin_order_payment_url(@order), class: "btn-success", icon: 'add' %>
-    </span>
+    <% unless @order.paid? %>
+      <span>
+        <%= button_link_to "Pembayaran Lunas", change_order_payment_state_path(:order_id => @order.id, :payment_state => 'paid'),  method: :patch, class: "btn-success" %>
+      </span>
+    <% else %>
+      <span>
+        <%= button_link_to "Batalkan Pembayaran", change_order_payment_state_path(:order_id => @order.id, :payment_state => 'balance_due'),  method: :patch, class: "btn-warning" %>
+      </span>
+    <% end %>
   <% end %>
 <% end %>
 

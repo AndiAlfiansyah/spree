@@ -130,6 +130,14 @@ module Spree
         respond_with(@order) { |format| format.html { redirect_back fallback_location: spree.admin_order_adjustments_url(@order) } }
       end
 
+      def change_order_payment_state
+        order = Spree::Order.find(params[:order_id])
+        order.payment_state = params[:payment_state]
+        if order.save
+          redirect_back fallback_location: spree.admin_order_payments_path(order)
+        end
+      end
+
       private
 
       def order_params

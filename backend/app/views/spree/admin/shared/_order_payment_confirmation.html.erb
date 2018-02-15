@@ -24,10 +24,18 @@
       </tr>
       <tr>
         <td id="order_status" width="35%" data-hook>
-          <strong>No. Rekening:</strong>
+          <strong>Rekening Tujuan:</strong>
         </td>
         <td>
           <%= payment_confirmation.bank_account_number %>
+        </td>
+      </tr>
+      <tr>
+        <td id="order_status" width="35%" data-hook>
+          <strong>Jumlah:</strong>
+        </td>
+        <td>
+          <%= number_to_currency(payment_confirmation.amount) %>
         </td>
       </tr>
       <tr>
