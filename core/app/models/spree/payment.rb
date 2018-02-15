@@ -21,6 +21,7 @@ module Spree
     has_many :state_changes, as: :stateful
     has_many :capture_events, class_name: 'Spree::PaymentCaptureEvent'
     has_many :refunds, inverse_of: :payment
+    has_many :payment_confirmations
 
     validates :payment_method, presence: true
     validates :number, uniqueness: true

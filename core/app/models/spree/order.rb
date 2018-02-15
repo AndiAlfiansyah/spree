@@ -84,6 +84,7 @@ module Spree
       has_many :state_changes, as: :stateful
       has_many :line_items, -> { order(:created_at) }, inverse_of: :order
       has_many :payments
+      has_many :payment_confirmations
       has_many :return_authorizations, inverse_of: :order
       has_many :adjustments, -> { order(:created_at) }, as: :adjustable
     end
