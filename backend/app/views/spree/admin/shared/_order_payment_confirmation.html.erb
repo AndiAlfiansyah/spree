@@ -1,0 +1,44 @@
+<% @order.payment_confirmations.each do |payment_confirmation| %>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Konfirmasi Pembayaran</h3>
+  </div>
+
+  <table class="table table-condensed table-bordered" id="order_tab_summary" data-hook>
+    <tbody class="additional-info">
+      <tr>
+        <td id="order_status" width="35%" data-hook>
+          <strong>Bukti:</strong>
+        </td>
+        <td>
+          <%= link_to 'Show', payment_confirmation.file_prove.url, target: :_blank %>
+        </td>
+      </tr>
+      <tr>
+        <td id="order_status" width="35%" data-hook>
+          <strong>Nama Akun:</strong>
+        </td>
+        <td>
+          <%= payment_confirmation.account_name_as %>
+        </td>
+      </tr>
+      <tr>
+        <td id="order_status" width="35%" data-hook>
+          <strong>No. Rekening:</strong>
+        </td>
+        <td>
+          <%= payment_confirmation.bank_account_number %>
+        </td>
+      </tr>
+      <tr>
+        <td id="order_status" width="35%" data-hook>
+          <strong>Tanggal Upload:</strong>
+        </td>
+        <td>
+          <%= pretty_time(payment_confirmation.created_at) %>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<% end %>
