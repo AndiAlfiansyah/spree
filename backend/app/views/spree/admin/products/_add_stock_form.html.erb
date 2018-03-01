@@ -10,7 +10,7 @@
         <div class="form-group">
           <%= f.field_container :quantity do %>
             <%= f.label :quantity, Spree.t(:quantity) %>
-            <%= f.number_field :quantity, class: 'form-control', value: 1 %>
+            <%= f.number_field :quantity, class: 'form-control', value: 1, min: 1 %>
           <% end %>
         </div>
       </div>
