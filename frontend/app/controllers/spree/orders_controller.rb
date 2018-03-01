@@ -45,11 +45,17 @@ module Spree
       quantity = params[:quantity].to_i
       options  = params[:options] || {}
 
+      if variant.discount
+        before_discount = variant.price
+        variant.price = variant.discount
+        variant.save
+      end
+
       # 2,147,483,647 is crazy. See issue #2695.
       if quantity.between?(1, 2_147_483_647)
         begin
           order.contents.add(variant, quantity, options)
-          order.update_line_item_prices!
+          # order.update_line_item_prices!
           order.create_tax_charge!
           order.update_with_updater!
         rescue ActiveRecord::RecordInvalid => e
@@ -57,6 +63,11 @@ module Spree
         end
       else
         error = Spree.t(:please_enter_reasonable_quantity)
+      end
+
+      if variant.discount
+        variant.price = before_discount
+        variant.save
       end
 
       if error
