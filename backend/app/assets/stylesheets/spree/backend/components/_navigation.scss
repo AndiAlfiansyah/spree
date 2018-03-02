@@ -4,11 +4,23 @@
   padding: 0;
   margin: 0;
   position: absolute;
-  right: 0;
+  left: 15px;
   margin-top: 17px;
   cursor: pointer;
 }
 
 .navbar .row {
   padding-bottom: 0;
+}
+.navbar-header{
+  background: #fff;
+  border-bottom: 1px solid #eeeeee;
+  .logo.navbar-brand{
+    width: 100%;
+    margin: auto;
+    text-align: center;
+  }
+}
+.navbar-brand > img{
+  display: initial
 }
