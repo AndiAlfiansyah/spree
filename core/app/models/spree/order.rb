@@ -4,7 +4,7 @@ require 'spree/order/checkout'
 module Spree
   class Order < Spree::Base
     PAYMENT_STATES = %w(balance_due credit_owed failed paid void)
-    SHIPMENT_STATES = %w(backorder canceled partial pending ready shipped)
+    SHIPMENT_STATES = %w(backorder canceled partial pending ready shipped arrived done)
 
     include Spree::Order::Checkout
     include Spree::Order::CurrencyUpdater
@@ -408,6 +408,31 @@ module Spree
     def deliver_order_confirmation_email
       OrderMailer.confirm_email(id).deliver_later
       update_column(:confirmation_delivered, true)
+    end
+
+    # Helper methods for shipment steps
+    def pending?
+      shipment_state == 'pending'
+    end
+
+    def canceled?
+      shipment_state == 'canceled'
+    end
+
+    def ready?
+      shipment_state == 'ready'
+    end
+
+    def shipped?
+      shipment_state == 'shipped'
+    end
+
+    def arrived?
+      shipment_state == 'arrived'
+    end
+
+    def done?
+      shipment_state == 'done'
     end
 
     # Helper methods for checkout steps
