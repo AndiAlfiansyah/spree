@@ -187,4 +187,5 @@ Spree::Core::Engine.add_routes do
   spree_path = Rails.application.routes.url_helpers.try(:spree_path, trailing_slash: true) || '/'
   get Spree.admin_path, to: redirect((spree_path + Spree.admin_path + '/orders').gsub('//', '/')), as: :admin
   patch '/state/update', to: 'admin/orders#change_order_payment_state', as: 'change_order_payment_state'
+  patch '/shipment/update', to: 'admin/orders#change_order_shipment_state', as: 'change_order_shipment_state'
 end

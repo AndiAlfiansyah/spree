@@ -138,6 +138,14 @@ module Spree
         end
       end
 
+      def change_order_shipment_state
+        order = Spree::Order.find(params[:order_id])
+        order.shipment_state = params[:shipment_state]
+        if order.save
+          redirect_back fallback_location: spree.edit_admin_order_path(order)
+        end
+      end
+
       private
 
       def order_params

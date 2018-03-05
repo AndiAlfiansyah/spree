@@ -1,12 +1,26 @@
 <% content_for :page_actions do %>
-  <% if can?(:fire, order) %>
-    <%= event_links(order, events) %>
-  <% end %>
-  <% if can?(:resend, order) %>
-    <%= button_link_to Spree.t(:resend, scope: 'admin.order.events', default: Spree.t(:resend)),
+  <%# if can?(:fire, order) %>
+    <%# event_links(order, events) %>
+  <%# end %>
+  <%# if can?(:resend, order) %>
+    <%# button_link_to Spree.t(:resend, scope: 'admin.order.events', default: Spree.t(:resend)),
           resend_admin_order_url(order),
           method: :post,
           icon: 'envelope'
     %>
+  <%# end %>
+  <% if order.pending? || order.canceled? %>
+    <%= button_link_to "Siap Dikirim", change_order_shipment_state_path(:order_id => order.id, :shipment_state => 'ready'),  method: :patch, class: "btn-primary" %>
+  <% elsif order.ready? %>
+    <%= button_link_to "Tunda Pengiriman", change_order_shipment_state_path(:order_id => order.id, :shipment_state => 'pending'),  method: :patch, class: "btn-warning" %>
+    <%= button_link_to "Kirim Barang", change_order_shipment_state_path(:order_id => order.id, :shipment_state => 'shipped'),  method: :patch, class: "btn-primary" %>
+  <% elsif order.shipped? %>
+    <%= button_link_to "Batalkan Pengiriman", change_order_shipment_state_path(:order_id => order.id, :shipment_state => 'canceled'),  method: :patch, class: "btn-warning" %>
+    <%= button_link_to "Barang Sudah Tiba", change_order_shipment_state_path(:order_id => order.id, :shipment_state => 'arrived'),  method: :patch, class: "btn-primary" %>
+  <% elsif order.arrived? %>
+    <%= button_link_to "Batalkan Pengiriman", change_order_shipment_state_path(:order_id => order.id, :shipment_state => 'canceled'),  method: :patch, class: "btn-warning" %>
+    <%= button_link_to "Pengiriman Selesai", change_order_shipment_state_path(:order_id => order.id, :shipment_state => 'done'),  method: :patch, class: "btn-primary" %>
+  <% elsif order.done? %>
+    <%= button_link_to "Batalkan Pengiriman", change_order_shipment_state_path(:order_id => order.id, :shipment_state => 'canceled'),  method: :patch, class: "btn-warning" %>
   <% end %>
 <% end %>
