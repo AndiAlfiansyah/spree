@@ -11,7 +11,7 @@
         </td>
         <td>
           <span class="state label label-<%= @order.state %>">
-            <%= Spree.t(@order.state, scope: :order_state) %>
+            <%= Spree.t(@order.state, scope: :order_state).capitalize %>
           </span>
         </td>
       </tr>
@@ -71,7 +71,7 @@
           </td>
           <td id='shipment_status'>
             <span class="state label label-<%= @order.shipment_state %>">
-              <%= Spree.t(@order.shipment_state, scope: :shipment_states, default: [:missing, "none"]) %>
+              <%= Spree.t(@order.shipment_state, scope: :shipment_states, default: [:missing, "none"]).capitalize %>
             </span>
           </td>
         </tr>
