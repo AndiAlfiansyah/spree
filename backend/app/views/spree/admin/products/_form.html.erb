@@ -31,10 +31,10 @@
 
     <div class="col-xs-12 col-md-4" data-hook="admin_product_form_right">
       <div data-hook="admin_product_form_price">
-        <%= f.field_container :price, class: ['form-group'] do %>
-          <%= f.label :price, raw(Spree.t(:master_price) + content_tag(:span, ' *', class: "required")) %>
-          <%= f.text_field :price, value: number_to_currency(@product.price, unit: ''), class: 'form-control prices', disabled: (cannot? :update, @product.price) %>
-          <%= f.error_message_on :price %>
+        <%= f.field_container :master_price, class: ['form-group'] do %>
+          <%= f.label :master_price, raw(Spree.t(:master_price) + content_tag(:span, ' *', class: "required")) %>
+          <%= f.text_field :master_price, value: number_to_currency(@product.master_price, unit: ''), class: 'form-control prices', disabled: (cannot? :update, @product.master_price) %>
+          <%= f.error_message_on :master_price %>
         <% end %>
       </div>
 
@@ -70,7 +70,7 @@
       <div data-hook="admin_product_form_cost_currency" class="omega two columns">
         <%= f.field_container :cost_currency, class: ['form-group'] do %>
           <%= f.label :cost_currency, Spree.t(:cost_currency) %>
-          <%= f.text_field :cost_currency, class: 'form-control' %>
+          <%= f.text_field :cost_currency, class: 'form-control', :readonly => true %>
           <%= f.error_message_on :cost_currency %>
         <% end %>
       </div>
@@ -95,7 +95,8 @@
         <%= f.field_container :promotionable, class: ['form-group'] do %>
           <%= f.label :promotionable, Spree.t(:promotionable) %>
           <%= f.error_message_on :promotionable %>
-          <%= f.check_box :promotionable, class: 'form-control' %>
+          <br>
+          <%= f.check_box :promotionable %>
         <% end %>
       </div>
 

@@ -90,6 +90,7 @@ module Spree
 
     before_validation :normalize_slug, on: :update
     before_validation :validate_master
+    before_validation :validate_discount_price
 
     with_options length: { maximum: 255 }, allow_blank: true do
       validates :meta_keywords
@@ -132,6 +133,14 @@ module Spree
     # def count_variant
     #   self.variants.to_s.to_i
     # end
+
+    def validate_discount_price
+      if self.discount.present?
+        self.price = self.discount
+      else
+        self.price = self.master_price
+      end
+    end
 
     def self.exort_attributes_for(type)
       if type.eql?('xlsx')
