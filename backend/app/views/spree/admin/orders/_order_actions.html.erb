@@ -9,7 +9,7 @@
           icon: 'envelope'
     %>
   <%# end %>
-  <% if order.pending? || order.canceled? %>
+  <% if order.pending? || order.canceled? || order.backorder? %>
     <%= button_link_to "Siap Dikirim", change_order_shipment_state_path(:order_id => order.id, :shipment_state => 'ready'),  method: :patch, class: "btn-primary" %>
   <% elsif order.ready? %>
     <%= button_link_to "Tunda Pengiriman", change_order_shipment_state_path(:order_id => order.id, :shipment_state => 'pending'),  method: :patch, class: "btn-warning" %>

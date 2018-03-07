@@ -415,6 +415,10 @@ module Spree
       shipment_state == 'pending'
     end
 
+    def backorder?
+      shipment_state == 'backorder'
+    end
+
     def canceled?
       shipment_state == 'canceled'
     end
