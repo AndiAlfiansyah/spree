@@ -4,7 +4,7 @@
 <% end %>
 
 <% content_for :sidebar do %>
-  <ul class="nav nav-pills nav-stacked" data-hook="admin_product_tabs">
+  <ul class="nav nav-pills nav-stacked">
     <%= content_tag :li, class: ('active' if current == :details) do %>
       <%= link_to_with_icon 'edit', Spree.t(:details), edit_admin_product_url(@product) %>
     <% end if can?(:admin, Spree::Product) %>
