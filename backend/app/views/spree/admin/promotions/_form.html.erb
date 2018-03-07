@@ -32,10 +32,10 @@
       <%= f.text_area :description, rows: 7, class: 'form-control' %>
     <% end %>
 
-    <%= f.field_container :category, class: ['form-group'] do %>
-      <%= f.label :promotion_category %>
-      <%= f.collection_select(:promotion_category_id, @promotion_categories, :id, :name, { include_blank: Spree.t('match_choices.none') }, { class: 'select2' }) %>
-    <% end %>
+    <%# f.field_container :category, class: ['form-group'] do %>
+      <%# f.label :promotion_category %>
+      <%# f.collection_select(:promotion_category_id, @promotion_categories, :id, :name, { include_blank: Spree.t('match_choices.none') }, { class: 'select2' }) %>
+    <%# end %>
   </div>
 
   <div id="expiry_fields" class="col-xs-6 col-md-3">

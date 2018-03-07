@@ -86,13 +86,13 @@ module Spree
         Rails.application.config.spree.promotions.rules.concat [
           Spree::Promotion::Rules::ItemTotal,
           Spree::Promotion::Rules::Product,
-          Spree::Promotion::Rules::User,
-          Spree::Promotion::Rules::FirstOrder,
-          Spree::Promotion::Rules::UserLoggedIn,
-          Spree::Promotion::Rules::OneUsePerUser,
-          Spree::Promotion::Rules::Taxon,
-          Spree::Promotion::Rules::OptionValue,
-          Spree::Promotion::Rules::Country
+          Spree::Promotion::Rules::User
+          #Spree::Promotion::Rules::FirstOrder,
+          #Spree::Promotion::Rules::UserLoggedIn,
+          #Spree::Promotion::Rules::OneUsePerUser,
+          #Spree::Promotion::Rules::Taxon,
+          #Spree::Promotion::Rules::OptionValue,
+          #Spree::Promotion::Rules::Country
         ]
       end
 
