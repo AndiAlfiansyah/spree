@@ -134,28 +134,28 @@
           <div class="col-xs-12 col-md-6">
             <div id="shipping_specs_weight_field" data-hook="admin_product_form_weight" class="form-group">
               <%= f.label :weight, Spree.t(:weight) %>
-              <%= f.number_field :weight, value: number_with_precision(@product.weight, precision: 2), size: 4, class: 'form-control' %>
+              <%= f.number_field :weight, value: @product.weight, size: 4, min: 1, required: 'true', oninvalid: "this.setCustomValidity('Kolom ini tidak boleh kosong')", oninput: "setCustomValidity('')", class: 'form-control' %>
             </div>
           </div>
 
           <div class="col-xs-12 col-md-6">
             <div id="shipping_specs_height_field" data-hook="admin_product_form_height" class="form-group">
               <%= f.label :height, Spree.t(:height) %>
-              <%= f.number_field :height, value: number_with_precision(@product.height, precision: 2), size: 4, class: 'form-control' %>
+              <%= f.number_field :height, value: @product.height, size: 4, class: 'form-control' %>
             </div>
           </div>
 
           <div class="col-xs-12 col-md-6">
             <div id="shipping_specs_width_field" data-hook="admin_product_form_width" class="form-group">
               <%= f.label :width, Spree.t(:width) %>
-              <%= f.number_field :width, value: number_with_precision(@product.width, precision: 2), size: 4, class: 'form-control' %>
+              <%= f.number_field :width, value: @product.width, size: 4, class: 'form-control' %>
             </div>
           </div>
 
           <div class="col-xs-12 col-md-6">
             <div id="shipping_specs_depth_field" data-hook="admin_product_form_depth" class="form-group">
               <%= f.label :depth, Spree.t(:depth) %>
-              <%= f.number_field :depth, value: number_with_precision(@product.depth, precision: 2), size: 4, class: 'form-control' %>
+              <%= f.number_field :depth, value: @product.depth, size: 4, class: 'form-control' %>
             </div>
           </div>
         </div>
