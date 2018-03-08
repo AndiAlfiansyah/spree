@@ -59,9 +59,16 @@
 
       <tr>
         <td data-hook='admin_order_tab_total_title'>
+          <strong>Kode unik:</strong>
+        </td>
+        <td id='order_total'><%= @order.payments.last.source.amount_identifier %></td>
+      </tr>
+
+      <tr>
+        <td data-hook='admin_order_tab_total_title'>
           <strong><%= Spree.t(:total) %>:</strong>
         </td>
-        <td id='order_total'><%= @order.display_total.to_html %></td>
+        <td id='order_total'><%= @order.display_total_to_be_paid.to_html %></td>
       </tr>
 
       <% if @order.completed? %>

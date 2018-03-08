@@ -34,7 +34,7 @@
         <%= link_to_with_icon 'credit-card', Spree.t(:payments), spree.admin_order_payments_url(@order) %>
       </li>
     <% end %>
-
+<!-- 
     <% if can? :index, Spree::ReturnAuthorization %>
       <% if @order.completed? %>
         <li<%== ' class="active"' if current == :return_authorizations %> data-hook='admin_order_tabs_return_authorizations'>
@@ -50,7 +50,7 @@
         </li>
       <% end %>
     <% end %>
-
+ -->
     <% if can? :update, @order %>
       <li<%== ' class="active"' if current == :state_changes %> data-hook='admin_order_tabs_state_changes'>
         <%= link_to_with_icon 'refresh', Spree::StateChange.human_attribute_name(:state_changes), spree.admin_order_state_changes_url(@order) %>
