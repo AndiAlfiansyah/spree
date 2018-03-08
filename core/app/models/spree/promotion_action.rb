@@ -19,7 +19,7 @@ module Spree
     protected
 
     def label
-      'Kupon'
+      Spree.t(:promotion_label, name: promotion.name)
     end
   end
 end
