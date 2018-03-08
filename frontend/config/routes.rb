@@ -16,6 +16,8 @@ Spree::Core::Engine.add_routes do
     post :populate, on: :collection
   end
 
+  patch '/orders/:id/arrived', to: 'users#order_arrived', as: :order_arrived
+
   get '/cart', to: 'orders#edit', as: :cart
   patch '/cart', to: 'orders#update', as: :update_cart
   put '/cart/empty', to: 'orders#empty', as: :empty_cart
