@@ -136,7 +136,7 @@ module Spree
 
     def validate_discount_price
       if self.discount.present?
-        self.price = self.discount
+        self.price = self.discount unless self.discount == 0
       else
         self.price = self.master_price
       end
