@@ -17,7 +17,7 @@
 <% content_for :page_title do %>
   / <%= Spree.t(:payments) %>
 <% end %>
-
+<!-- 
 <% if @order.outstanding_balance? %>
   <div class="alert alert-info outstanding-balance">
     <%= @order.outstanding_balance < 0 ? Spree.t(:credit_owed) : Spree.t(:balance_due) %>: <strong><%= @order.display_outstanding_balance %></strong>
@@ -40,7 +40,7 @@
 <% else %>
   <div class="alert alert-info no-objects-found"><%= Spree.t(:order_has_no_payments) %></div>
 <% end %>
-
+ -->
 <%= render partial: 'spree/admin/shared/order_summary' %>
 
 <%= render partial: 'spree/admin/shared/order_payment_confirmation' %>
