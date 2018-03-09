@@ -46,6 +46,14 @@
           <%= pretty_time(payment_confirmation.created_at) %>
         </td>
       </tr>
+      <tr>
+        <td id="order_status" width="35%" data-hook>
+          <strong>Keterangan:</strong>
+        </td>
+        <td>
+          <%= payment_confirmation.note %>
+        </td>
+      </tr>
     </tbody>
   </table>
 </div>
