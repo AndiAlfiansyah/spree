@@ -61,7 +61,7 @@
         <td data-hook='admin_order_tab_total_title'>
           <strong>Kode unik:</strong>
         </td>
-        <td id='order_total'><%= @order.payments.last.source.amount_identifier %></td>
+        <td id='order_total'><%= @order.payments.present? ? @order.payments.last.source.amount_identifier : "Di-generate setelah pesanan terkonfirmasi" %></td>
       </tr>
 
       <tr>
