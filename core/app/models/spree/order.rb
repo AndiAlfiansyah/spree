@@ -185,12 +185,17 @@ module Spree
     end
 
     def total_to_be_paid
-      if has_promo?
-        total_price = display_total_after_discount
+      if payments.present?
+        unique_code = payments.last.source.amount_identifier
       else
-        total_price = total + self.shipment_total.to_i
+        unique_code = rand(999)
       end
-      @total_to_be_paid ||= (total_price + self.adjustments.eligible.sum(&:amount)) + (payments.present? ? payments.last.source.amount_identifier : rand(999))
+      if has_promo?
+        total_price = display_total_after_discount + adjustments.eligible.sum(&:amount) + self.shipment_total.to_i
+      else
+        total_price = display_total_after_discount
+      end
+      @total_to_be_paid ||= total_price + unique_code
     end
 
     # Sum of all line item amounts pre-tax
