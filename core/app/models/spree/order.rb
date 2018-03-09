@@ -190,7 +190,7 @@ module Spree
       else
         total_price = total + self.shipment_total.to_i
       end
-      @total_to_be_paid ||= ((total_price + self.shipment_total.to_i) + self.adjustments.eligible.sum(&:amount)) + (payments.present? ? payments.last.source.amount_identifier : rand(999))
+      @total_to_be_paid ||= (total_price + self.adjustments.eligible.sum(&:amount)) + (payments.present? ? payments.last.source.amount_identifier : rand(999))
     end
 
     # Sum of all line item amounts pre-tax
