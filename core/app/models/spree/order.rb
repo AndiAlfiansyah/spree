@@ -417,6 +417,7 @@ module Spree
 
     def deliver_order_confirmation_email
       OrderMailer.confirm_email(id).deliver_later
+      OrderMailer.confirm_email(id).deliver
       update_column(:confirmation_delivered, true)
     end
 
