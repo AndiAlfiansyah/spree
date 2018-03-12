@@ -15,13 +15,13 @@
   <tbody>
     <% @mutations.each do |mutation| %>
       <tr>
-        <th scope="row"><%= mutation['date'].html_safe %></th>
+        <th scope="row"><%= Date.parse(mutation['date']).strftime('%m/%b/%y') %></th>
         <td><%= mutation['description'].html_safe %></td>
-        <td><%= mutation['amount'] %></td>
+        <td><%= number_to_currency(mutation['amount']) %></td>
         <td><%= mutation['type'].html_safe %></td>
         <td><%= mutation['note'] %></td>
-        <td><%= mutation['balance'] %></td>
-        <td><%= mutation['created_at'].html_safe %></td>
+        <td><%= number_to_currency(mutation['balance']) %></td>
+        <td><%= Date.parse(mutation['created_at']).strftime('%m/%b/%y') %></td>
         <td><%= mutation['mutation_id'].html_safe %></td>
       </tr>
     <% end %>
