@@ -40,7 +40,7 @@ module Spree
         price = orders.total 
       end 
 
-      res = XenditService.new.create_invoice(external_id: _options[:order_id], payer_email: _options[:email], description: _options[:order_id], amount: price )
+      res = XenditService.new.create_invoice(external_id: _options[:order_id], payer_email: 'test@example.com', description: _options[:order_id], amount: price )
       # binding.pry
       res["available_banks"].each do |available_bank|
         credit_card.virtual_accounts.create(bank_code: available_bank['bank_code'], collection_type: available_bank['collection_type'], bank_account_number: available_bank['bank_account_number'], transfer_amount: available_bank['transfer_amount'], bank_branch: available_bank['bank_branch'], account_holder_name: available_bank['account_holder_name'], identity_amount: available_bank['identity_amount'])
