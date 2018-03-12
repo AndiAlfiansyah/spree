@@ -56,6 +56,14 @@
                 <% next if (adjustment.source_type == 'Spree::TaxRate') || (adjustment.amount == 0) %>
                 <%= render 'spree/order_mailer/adjustment', adjustment: adjustment %>
               <% end %>
+              <tr>
+                <td class="six sub-columns">
+                  Kode Unik:
+                </td>
+                <td class="six sub-columns last right">
+                  <%= @order.payments.last.source.amount_identifier %>
+                </td>
+              </tr>
               <%= render 'spree/order_mailer/total', order: @order %>
             </table>
           </td>
