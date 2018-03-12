@@ -34,7 +34,7 @@ module Spree
     	return self.total unless has_promo?
         calculate_discount_promo
         price_order = item_total.to_i
-        puts formula = price_order.to_i - self.total_discount_from_promo
+        puts formula = price_order.to_i - self.total_discount_from_promo  + self.shipment_total.to_i
 		self.after_discount = formula
     end
 
