@@ -58,7 +58,7 @@
     <div data-hook="bill_address_wrapper" class="col-xs-12 col-md-6">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h1 class="panel-title"><%= Spree.t(:billing_address) %></h1>
+          <h1 class="panel-title"><%= Spree.t(:shipping_address) %></h1>
         </div>
 
         <div class="panel-body">
@@ -76,7 +76,7 @@
     <div class="col-xs-12 col-md-6" data-hook="ship_address_wrapper">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h1 class="panel-title"><%= Spree.t(:shipping_address) %></h1>
+          <h1 class="panel-title"><%= Spree.t(:billing_address) %></h1>
         </div>
         <div class="panel-body">
           <% if can? :edit, @order.user %>
