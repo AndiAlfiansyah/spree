@@ -30,8 +30,17 @@
       <%= Spree.t(:order_total) %>:
       <strong class="order-total">
         <% if order.adjustments.present? %>
-          <%= number_to_currency(order.total + order.shipment_total) %>
+          <% if order.has_promo? %>
+            <%= number_to_currency(order.total + order.shipment_total - order.total_discount_from_promo) %>
+          <% else %>
+            <%= number_to_currency(order.total + order.shipment_total) %>
+          <% end %>
         <% else %>
+          <% if order.has_promo? %>
+            <%= number_to_currency(order.total - order.total_discount_from_promo) %>
+          <% else %>
+            <%= number_to_currency(order.total) %>
+          <% end %>
           <%= order.display_total %>
         <% end %>
       </strong>
