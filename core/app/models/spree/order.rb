@@ -193,7 +193,7 @@ module Spree
       if has_promo?
         total_price = display_total_after_discount + adjustments.eligible.sum(&:amount) + self.shipment_total.to_i
       else
-        if self.adjusments.present?
+        if self.adjustments.present?
           total_price = display_total_after_discount + self.shipment_total.to_i
         else
           total_price = display_total_after_discount
