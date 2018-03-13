@@ -1,78 +1,172 @@
-<table class="row header">
-  <tr>
-    <td>
-      <p class="lede">
-        <%= Spree.t('order_mailer.confirm_email.dear_customer') %>
-      </p>
-      <p>
-        <%= Spree.t('order_mailer.confirm_email.instructions') %>
-      </p>
-      <p>
-        <%= Spree.t('order_mailer.confirm_email.order_summary', number: @order.number) %>
-      </p>
-      <table class="container">
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Terminal Grosir</title>
+  <style type="text/css">
+    .container-email-confirm{
+      width: 720px;
+      color: #323232;
+      font-family: 'roboto', arial, serif;
+    }
+    .container-email-confirm .logo-left{
+      float: left;
+      width: 40%;
+      position: relative;
+    }
+    .container-email-confirm .title-right{
+      font-weight: 400;
+      font-style: normal;
+      color: #323232;
+      float: right;
+      position: relative;
+      text-align: center;
+      margin-top: 10px;
+      font-size: 22px;
+    }
+    .container-email-confirm  .clearfix{
+      content: "";
+      display: table;
+      clear: both;
+    }
+    .container-email-confirm hr{
+      display: block;
+      height: 1px;
+      border: 0;
+      border-top: 1px solid #ddd;
+      margin: 10px 0;
+      padding: 0;
+    }
+    .user-name{
+      font-weight: 400;
+      font-size: 18px;
+    }
+    .item-info{
+      font-size: 14px;
+    }
+    span.item-detail{
+      font-weight: bold;
+      color: #252525;
+      font-size: 14px;
+    }
+    .table-detail-info{
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .table-detail-info tr td {
+      border-bottom: 1px solid #ddd;
+    }
+    .table-detail-recap{
+      width: 100%;
+    }
+    .table-detail-recap.text-right tr{
+      text-align: right;
+      padding: 5px;
+    }
+    .table-detail-recap.text-right td{
+      text-align: right;
+      padding: 5px;
+      font-size: 14px;
+    }
+    .btn-see-order{
+      background: #323232;
+      border-radius: 2.5px;
+      color: #fff;
+      padding: 15px;
+      margin-top: 35px!important;
+      margin-bottom: 15px!important;
+      margin: auto;
+      font-size: 14px;
+      margin-top: 25px;
+      border: 0px;
+    }
+    .info-confirm{
+      font-size: 14px;
+      line-height: 22px;
+    }
+    .container-addtional-content{
+      background: #f1f2f3;
+      padding: 10px;
+      border-bottom: 2px solid #ddd;
+    }
+    .container-addtional-content.text-center{
+      text-align: center;
+    }
+    .help-contact a{
+      color: #252525;
+    }
+  </style>
+</head>
+<body>
+  <div class="container-email-confirm">
+    <%= image_tag("LOGO TG Merah.png", :class => "logo-left") %>
+    <h3 class="title-right">Konfirmasi Pengiriman</h3>
+    <div class="clearfix"></div>
+    <hr>
+    <h4 class="user-name"><%= Spree.t('order_mailer.confirm_email.dear_customer') %></h3>
+    <p class="item-info"><%= Spree.t('order_mailer.confirm_email.instructions') %></p>
+    <!-- <table class="table-detail-info">
+      <tr>
+        <td><p class="item-info">Pesanan Anda Telah Dikirim</p></td>
+        <td><span class="item-detail">Rp. 690.000 Steam Wallet</span></td>
+      </tr>
+    </table> -->
+    <center>
+      <%# button_to order_path(@order), class: '' %>
+      <a href="https://www.terminalgrosir.com/orders/<%= @order.number %>" target="_blank" class="btn-see-order">Pantau Pesanan</a>
+    </center>
+    <br>
+    <p class="info-confirm">Anda akan menerima notifikasi ketika kami mendapatkan informasi dari pihak logistik bahwa barang anda telah tiba.</p>
+    <hr>
+    <h4>Rincian Pesanan</h4>
+    <br>
+    <table class="table-detail-recap text-right">
+      <tr>
+        <th>Nama Barang</th>
+        <th>Jumlah</th>
+        <th>Harga</th>
+      </tr>
+      <%= render collection: @order.line_items, partial: 'spree/shared/mailer_line_item', as: :line_item %>
+      <%= render 'spree/order_mailer/subtotal', order: @order %>
+      <% if @order.line_item_adjustments.exists? %>
+        <% if @order.all_adjustments.promotion.eligible.exists? %>
+          <% @order.all_adjustments.promotion.eligible.group_by(&:label).each do |label, adjustments| %>
+            <tr>
+              <td><%= Spree.t(:promotion) %> <%= label %>:</td>
+              <td><%= Spree::Money.new(adjustments.sum(&:amount), currency: @order.currency) %></td>
+            </tr>
+          <% end %>
+        <% end %>
+      <% end %>
+      <% @order.shipments.group_by { |s| s.selected_shipping_rate.try(:name) }.each do |name, shipments| %>
         <tr>
-          <td class="wrapper last">
-            <table class="twelve columns">
-              <%= render collection: @order.line_items, partial: 'spree/shared/mailer_line_item', as: :line_item %>
-              <%= render 'spree/order_mailer/subtotal', order: @order %>
-              <% if @order.line_item_adjustments.exists? %>
-                <% if @order.all_adjustments.promotion.eligible.exists? %>
-                  <% @order.all_adjustments.promotion.eligible.group_by(&:label).each do |label, adjustments| %>
-                    <tr>
-                      <td class="six sub-columns">
-                        <%= Spree.t(:promotion) %> <%= label %>:
-                      </td>
-                      <td class="six sub-columns last right">
-                        <%= Spree::Money.new(adjustments.sum(&:amount), currency: @order.currency) %>
-                      </td>
-                    </tr>
-                  <% end %>
-                <% end %>
-              <% end %>
-              <% @order.shipments.group_by { |s| s.selected_shipping_rate.try(:name) }.each do |name, shipments| %>
-                <tr>
-                  <td class="six sub-columns">
-                    <%= Spree.t(:shipping) %> <%= name %>:
-                  </td>
-                  <td class="six sub-columns last right">
-                    <%= Spree::Money.new(shipments.sum(&:discounted_cost), currency: @order.currency) %>
-                  </td>
-                </tr>
-              <% end %>
-              <% if @order.all_adjustments.eligible.tax.exists? %>
-                <% @order.all_adjustments.eligible.tax.group_by(&:label).each do |label, adjustments| %>
-                  <tr>
-                    <td class="six sub-columns">
-                      <%= Spree.t(:tax) %> <%= label %>:
-                    </td>
-                    <td class="six sub-columns last right">
-                      <%= Spree::Money.new(adjustments.sum(&:amount), currency: @order.currency) %>
-                    </td>
-                  </tr>
-                <% end %>
-              <% end %>
-              <% @order.adjustments.eligible.each do |adjustment| %>
-                <% next if (adjustment.source_type == 'Spree::TaxRate') || (adjustment.amount == 0) %>
-                <%= render 'spree/order_mailer/adjustment', adjustment: adjustment %>
-              <% end %>
-              <tr>
-                <td class="six sub-columns">
-                  Kode Unik:
-                </td>
-                <td class="six sub-columns last right">
-                  <%= @order.payments.last.source.amount_identifier %>
-                </td>
-              </tr>
-              <%= render 'spree/order_mailer/total', order: @order %>
-            </table>
-          </td>
+          <td><%= Spree.t(:shipping) %> <%= name %>:</td>
+          <td><%= Spree::Money.new(shipments.sum(&:discounted_cost), currency: @order.currency) %></td>
         </tr>
-      </table>
-      <p>
-        <%= Spree.t('order_mailer.confirm_email.thanks') %>
-      </p>
-    </td>
-    <td class="expander"></td>
-  </tr>
-</table>
+      <% end %>
+      <% @order.adjustments.eligible.each do |adjustment| %>
+        <% next if (adjustment.source_type == 'Spree::TaxRate') || (adjustment.amount == 0) %>
+        <%= render 'spree/order_mailer/adjustment', adjustment: adjustment %>
+      <% end %>
+      <tr>
+        <td>Kode Unik:</td>
+        <td><%= @order.payments.last.source.amount_identifier %></td>
+      </tr>
+      <%= render 'spree/order_mailer/total', order: @order %>
+    </table>
+    <hr>
+    <div class="container-addtional-content">
+      <h4>Tujuan Pengiriman</h4>
+      <br>
+      <p><%= @order.shipping_address.firstname %> <%= @order.shipping_address.lastname %></p>
+      <p><%= @order.shipping_address.address1 %></p>
+      <p><%= @order.shipping_address.city %></p>
+      <p><%= @order.shipping_address.state %></p>
+      <p><%= @order.shipping_address.zipcode %></p>
+    </div>
+    <div class="container-addtional-content text-center">
+      <p class="help-contact">Jika Butuh Bantuan, silakan kunjungi halaman <a href="https://www.terminalgrosir.com/contact-us">kontak kami</a></p>
+      <p class="copyright">Terminal Grosir © 2018</p>
+    </div>
+  </div>
+</body>
+</html>
