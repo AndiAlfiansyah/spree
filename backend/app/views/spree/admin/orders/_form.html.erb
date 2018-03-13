@@ -29,7 +29,15 @@
     <div class="alert alert-success" id="order-total" data-hook="order_details_total">
       <%= Spree.t(:order_total) %>:
       <strong class="order-total">
-        <%= order.display_total %>
+        <% if order.adjustments.present? %>
+          <% if order.has_promo? %>
+            <%= order.display_total %>
+          <% else %>
+            <%= number_to_currency(order.total + order.shipment_total) %>
+          <% end %>
+        <% else %>
+          <%= order.display_total %>
+        <% end %>
       </strong>
     </div>
   <% end %>
