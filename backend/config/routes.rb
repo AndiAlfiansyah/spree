@@ -4,7 +4,7 @@ Spree::Core::Engine.add_routes do
       resources :promotion_rules
       resources :promotion_actions
     end
-    resources :bank_accounts
+    resources :bank_accounts, except: [:show]
     resources :promotion_categories, except: [:show]
     resources :promotion_items
     resources :zones

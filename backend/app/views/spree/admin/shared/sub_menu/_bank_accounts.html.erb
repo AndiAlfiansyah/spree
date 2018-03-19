@@ -1,5 +1,5 @@
 <ul id="sidebar-bank-accounts" class="collapse nav nav-pills nav-stacked" style="text-transform: uppercase;">
   <% Spree::BankAccount.all.each do |bank| %>
-    <%= tab bank.bank_type, url: spree.admin_bank_account_path(id: bank.bank_id) %>
+    <%= tab bank.bank_type, url: spree.admin_bank_account_path(id: bank.bank_id, page: 1) %>
   <% end %>
 </ul>

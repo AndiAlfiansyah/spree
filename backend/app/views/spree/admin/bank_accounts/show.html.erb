@@ -13,7 +13,7 @@
     </tr>
   </thead>
   <tbody>
-    <% @mutations.each do |mutation| %>
+    <% @mutations['data'].each do |mutation| %>
       <tr>
         <th scope="row"><%= Date.parse(mutation['date']).strftime('%d/%b/%y') %></th>
         <td><%= mutation['description'].html_safe %></td>
@@ -28,6 +28,16 @@
   </tbody>
 </table>
 
+<p>
+  <center>
+  <% if params[:page].to_i > 1 %>
+  <%= link_to 'Previous', admin_bank_account_path(@bank.bank_id, (params[:page].to_i-1)) %> | 
+  <% end %>
+  Page <%= @mutations['current_page'] %> of <%= @mutations['last_page'] %> | 
+  <%= link_to 'Next', admin_bank_account_path(@bank.bank_id, (params[:page].to_i+1)) %>
+  </center>
+</p>
+
 <script type="text/javascript">
   var window_focus;
   $(window).focus(function() {
@@ -40,5 +50,5 @@
           location.reload();  // if not focused, reload
       }
   }
-  setInterval(checkReload, 10000);  // check if not focused, every 5 seconds
+  setInterval(checkReload, 60000);  // check if not focused, every 5 seconds
 </script>
