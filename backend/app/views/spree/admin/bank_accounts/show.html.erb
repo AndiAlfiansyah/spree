@@ -21,7 +21,7 @@
         <td><%= mutation['type'].html_safe %></td>
         <td><%= mutation['note'] %></td>
         <td><%= number_to_currency(mutation['balance']) %></td>
-        <td><%= Date.parse(mutation['created_at']).strftime('%m/%b/%y') %></td>
+        <td><%= Date.parse(mutation['created_at']).strftime('%d/%b/%y') %></td>
         <td><%= mutation['mutation_id'].html_safe %></td>
       </tr>
     <% end %>
