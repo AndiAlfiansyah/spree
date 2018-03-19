@@ -15,7 +15,7 @@
   <tbody>
     <% @mutations.each do |mutation| %>
       <tr>
-        <th scope="row"><%= Date.parse(mutation['date']).strftime('%m/%b/%y') %></th>
+        <th scope="row"><%= Date.parse(mutation['date']).strftime('%d/%b/%y') %></th>
         <td><%= mutation['description'].html_safe %></td>
         <td><%= number_to_currency(mutation['amount']) %></td>
         <td><%= mutation['type'].html_safe %></td>
