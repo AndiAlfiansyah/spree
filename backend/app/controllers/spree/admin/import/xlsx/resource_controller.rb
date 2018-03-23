@@ -5,7 +5,6 @@ module Spree
 			  skip_before_action :verify_authenticity_token
 
 				def create
-
 				  data =  extract
 				  render json: model.create(data)
 				end
