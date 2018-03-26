@@ -99,12 +99,13 @@
 <body>
   <div class="container-email-confirm">
     <!-- <img src="LOGO TG Merah.png" class="logo-left"> -->
-    <%= image_tag('http://www.terminalgrosir.com/assets/logo-tg-email.png') %>
+    <%= image_tag(image_url('logo.jpg')) %>
     <h3 class="title-right">Konfirmasi Pengiriman</h3>
     <div class="clearfix"></div>
     <hr>
     <h4 class="user-name"><%= Spree.t('order_mailer.confirm_email.dear_customer') %></h3>
     <p class="item-info"><%= Spree.t('order_mailer.confirm_email.instructions') %></p>
+    <br>
     <!-- <table class="table-detail-info">
       <tr>
         <td><p class="item-info">Pesanan Anda Telah Dikirim</p></td>
@@ -115,6 +116,7 @@
       <%# button_to order_path(@order), class: '' %>
       <a href="https://www.terminalgrosir.com/orders/<%= @order.number %>" target="_blank" class="btn-see-order">Pantau Pesanan</a>
     </center>
+    <br>
     <br>
     <p class="info-confirm">Anda akan menerima notifikasi ketika kami mendapatkan informasi dari pihak logistik bahwa barang anda telah tiba.</p>
     <hr>
