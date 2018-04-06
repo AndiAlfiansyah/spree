@@ -7,6 +7,7 @@ Spree::Core::Engine.add_routes do
     resources :bank_accounts, except: [:show]
     resources :promotion_categories, except: [:show]
     resources :promotion_items
+    resources :receipt_numbers, except: [:show, :edit, :update]
     resources :zones
 
     namespace :export do

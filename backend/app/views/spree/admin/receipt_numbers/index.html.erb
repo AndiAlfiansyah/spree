@@ -1,0 +1,37 @@
+<% content_for :page_title do %>
+  <%= plural_resource_name(Spree::ReceiptNumber) %>
+<% end %>
+<% content_for :page_actions do %>
+  <%= button_link_to Spree.t(:new_receipt_number), new_admin_receipt_number_path, icon: 'add', class: 'btn-success apped' %>
+  <%= button_link_to Spree.t(:destroy_all_receipt_number), destroy_all_admin_receipt_number_path, class: 'btn-danger apped',
+              method: :delete,
+              data: { confirm: 'Anda yakin akan menghapus semua data?' } %>
+<% end if can?(:create, Spree::ReceiptNumber) %>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Tanggal Dibuat</th>
+      <th scope="col">Kurir</th>
+      <th scope="col">Nomor</th>
+      <th scope="col">Terpakai</th>
+      <th scope="col">Aksi</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @receipt_numbers.each do |receipt_number| %>
+      <tr>
+        <th scope="row"><%= receipt_number.created_at.strftime('%d %B %Y') %></th>
+        <td><%= receipt_number.courier %></td>
+        <td><%= receipt_number.number %></td>
+        <td><%= receipt_number.used ? 'Ya' : 'Tidak' %></td>
+        <td>
+            <%= link_to 'Ubah Status', admin_receipt_number_toggle_usage_path(receipt_number) %> | 
+            <%= link_to 'Hapus', admin_receipt_number_path(receipt_number),
+              method: :delete,
+              data: { confirm: 'Anda yakin akan menghapus data ini?' } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,51 @@
+<% content_for :page_title do %>
+  <%= link_to plural_resource_name(Spree::ReceiptNumber), spree.admin_receipt_numbers_path %> /
+  <%# Spree.t(:new_receipt_number) %>
+  Nomor Resi Baru
+<% end %>
+
+<ul class="nav nav-pills">
+  <li class="active"><a data-toggle="pill" href="#form">Form</a></li>
+  <li><a data-toggle="pill" href="#by_range">By Range</a></li>
+</ul>
+
+<br>
+
+<div class="tab-content">
+  <div id="form" class="tab-pane fade in active">
+    <%= form_for @receipt_number, url: admin_receipt_numbers_path do |f| %>
+      <fieldset>
+        <%= render partial: 'form', locals: { f: f } %>
+        <%# render partial: 'spree/admin/shared/new_resource_links' %>
+        <div class="form-actions" data-hook="buttons">
+        <%= button Spree.t('actions.create'), 'ok', 'submit', {class: 'btn-success', data: { disable_with: "#{ Spree.t(:saving) }..." }} %>
+        <span class="or"><%= Spree.t(:or) %></span>
+        <%= button_link_to Spree.t('actions.cancel'), admin_receipt_numbers_path, icon: 'remove' %>
+      </div>
+      </fieldset>
+    <% end %>
+  </div>
+  <div id="by_range" class="tab-pane fade">
+    <%= form_for :receipt_number_by_range, url: admin_receipt_number_create_by_range_path do |f| %>
+      <fieldset>
+        <%= f.field_container :courier, class: ['form-group'] do %>
+          <%= f.label :courier %>
+          <%= f.select :courier, options_for_select([ "JNE", "J&T", "SiCepat" ]),{}, include_blank: " ", class: 'form-control'%>
+        <% end %>
+        <%= f.field_container :start_num, class: ['form-group'] do %>
+          <%= f.label :start_num %>
+          <%= f.number_field :start_num, class: 'form-control' %>
+        <% end %>
+        <%= f.field_container :end_num, class: ['form-group'] do %>
+          <%= f.label :end_num %>
+          <%= f.number_field :end_num, class: 'form-control' %>
+        <% end %>
+        <div class="form-actions" data-hook="buttons">
+        <%= button Spree.t('actions.create'), 'ok', 'submit', {class: 'btn-success', data: { disable_with: "#{ Spree.t(:saving) }..." }} %>
+        <span class="or"><%= Spree.t(:or) %></span>
+        <%= button_link_to Spree.t('actions.cancel'), admin_receipt_numbers_path, icon: 'remove' %>
+      </div>
+      </fieldset>
+    <% end %>
+  </div>
+</div>
