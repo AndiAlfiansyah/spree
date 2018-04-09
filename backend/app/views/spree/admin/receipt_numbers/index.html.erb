@@ -1,5 +1,5 @@
 <% content_for :page_title do %>
-  <%= plural_resource_name(Spree::ReceiptNumber) %>
+  <%= Spree.t('receipt_number') %>
 <% end %>
 <% content_for :page_actions do %>
   <%= button_link_to Spree.t(:new_receipt_number), new_admin_receipt_number_path, icon: 'add', class: 'btn-success apped' %>
@@ -33,5 +33,6 @@
         </td>
       </tr>
     <% end %>
+    <%= paginate @receipt_numbers %>
   </tbody>
 </table>
