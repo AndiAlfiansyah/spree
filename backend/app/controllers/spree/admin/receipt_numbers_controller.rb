@@ -1,6 +1,6 @@
 class Spree::Admin::ReceiptNumbersController < Spree::Admin::BaseController
   def index
-  	@receipt_numbers = Spree::ReceiptNumber.all
+  	@receipt_numbers = Spree::ReceiptNumber.order(:number).page params[:page]
   end
 
   def new
