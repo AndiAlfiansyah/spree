@@ -1,13 +1,13 @@
 <%= render partial: 'spree/admin/shared/error_messages', locals: { target: @receipt_number } %>
 <%= f.field_container :courier, class: ['form-group'] do %>
-  <%= f.label :courier %>
+  <%= f.label :courier, 'Kurir' %>
 	<%= f.select :courier, options_for_select([ "JNE", "J&T", "SiCepat" ]),{}, include_blank: " ", class: 'form-control'%>
 <% end %>
 <%= f.field_container :number, class: ['form-group'] do %>
-  <%= f.label :number %>
+  <%= f.label :number, 'Nomor' %>
   <%= f.text_field :number, class: 'form-control' %>
 <% end %>
 <%= f.field_container :used, class: ['form-group'] do %>
-  <%= f.label :used %>
+  <%= f.label :used, 'Terpakai' %>
   <%= f.check_box :used, class: 'form-control' %>
 <% end %>
