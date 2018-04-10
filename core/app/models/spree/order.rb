@@ -406,12 +406,14 @@ module Spree
       save!
       updater.run_hooks
 
-      if shipments.first.selected_shipping_rate.shipping_method.admin_name.downcase == 'sicepat'
-        shipment = shipments.first
-        shipment.tracking = Spree::ReceiptNumber.where(used: false).first.number
-        shipment.save!
+      if Spree::ReceiptNumber.where(used: false).count > 0
+        if shipments.first.selected_shipping_rate.shipping_method.admin_name.downcase == 'sicepat'
+          shipment = shipments.first
+          shipment.tracking = Spree::ReceiptNumber.where(used: false).first.number
+          shipment.save!
 
-        Spree::ReceiptNumber.where(number: shipment.tracking).first.toggle_usage
+          Spree::ReceiptNumber.where(number: shipment.tracking).first.toggle_usage
+        end
       end
 
       touch :completed_at
