@@ -10,6 +10,8 @@ module Spree
 
     def show
       @order = Order.includes(line_items: [variant: [:option_values, :images, :product]], bill_address: :state, ship_address: :state).find_by!(number: params[:id])
+      Spree::Tracking.request(@order.shipments.first.tracking) if @order.shipments.first.tracking.present?
+      @tracking = Spree::Tracking.where(waybill_number: @order.shipments.first.tracking).first if @order.shipments.first.tracking.present?
     end
 
     def update
