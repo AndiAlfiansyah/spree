@@ -1,6 +1,7 @@
 class Spree::Admin::ReceiptNumbersController < Spree::Admin::BaseController
   def index
   	@receipt_numbers = Spree::ReceiptNumber.order(:number).page params[:page]
+    @all = @receipt_numbers.count
     @used = @receipt_numbers.where(used: true).count
   end
 
