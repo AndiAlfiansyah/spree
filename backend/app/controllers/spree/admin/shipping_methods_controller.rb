@@ -16,6 +16,13 @@ module Spree
         end
       end
 
+      def update_origin_destination_sicepat
+        Spree::TrackingOrigin.request
+        Spree::TrackingDestination.request
+
+        redirect_to admin_shipping_methods_path
+      end
+
       private
 
       def set_shipping_category
